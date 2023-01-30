@@ -1,7 +1,0 @@
-Now listening on: https://localhost:7119
-Now listening on: http://localhost:5028
-Application started. Press Ctrl+C to shut down.
-Hosting environment: Development
-Content root path: C:\Users\user\source\repos\SocialUpdatesAPI\SocialUpdatesAPI\SocialUpdatesAPI\
-Entity Framework Core 6.0.13 initialized 'SocialUpdatesContext' using provider 'Microsoft.EntityFrameworkCore.InMemory:6.0.0' with options: StoreName=SocialUpdates 
-{"Id":0,"Title":"ttt","Description":"ggg","Photo":"jjjj"}

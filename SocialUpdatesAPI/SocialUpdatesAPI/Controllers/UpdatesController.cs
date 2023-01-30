@@ -22,6 +22,7 @@ namespace SocialUpdatesAPI.Controllers
             ,IUpdateStore updateStore
             )
         {
+            _updateStore = updateStore;
             _context = context;
         }
 
@@ -103,7 +104,8 @@ namespace SocialUpdatesAPI.Controllers
         [HttpPost("{create}")]
         public async Task CreateUpdate(PostItem postItem)
         {
-            await _updateStore.SaveAsync(postItem);
+           var tt =  _updateStore.SaveAsync(postItem);
+           await tt;
         }
        
 

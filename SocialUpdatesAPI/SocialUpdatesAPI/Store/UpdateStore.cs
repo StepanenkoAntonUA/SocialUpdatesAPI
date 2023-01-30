@@ -18,7 +18,6 @@ namespace SocialUpdatesAPI.Store
         public async Task SaveAsync(PostItem data)
         {
             Logger.Info($"{data.ToJson()}");
-            Logger.Error($"{data.ToJson()}");
         }
     }
 }

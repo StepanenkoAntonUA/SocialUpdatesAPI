@@ -21,8 +21,7 @@ namespace SocialUpdatesAPI.Controllers
         {
             _context = context;
         }
-
-        // GET: api/SocialUpdateItems
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PostItemDTO>>> GetSocialUpdates()
         {

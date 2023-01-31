@@ -1,26 +1,23 @@
 ﻿using SocialUpdatesAPI.Models;
 using NuGet.Protocol;
 using System.Globalization;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace SocialUpdatesAPI.Store
 {
     public class UpdateStore : IUpdateStore
     {
-
-        public UpdateStore()
-        {
-        }
-
         public async Task SaveAsync(PostItem data)
-        {
-            var message = String.Format("[{0}] : {1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture), data.ToJson());
-            var fileName = Path.Combine(Directory.GetCurrentDirectory()) + "\\" + DateTime.UtcNow.ToString("yyyyMMdd") + ".log";
-            
-            using (StreamWriter sw = new StreamWriter(fileName, true ))
+        {          
+            var currentDir = Path.Combine(Directory.GetCurrentDirectory());
+            var currentTimeStr = DateTime.UtcNow.ToString("yyyyMMdd");
+            var fileName = $"{currentDir}\\{currentTimeStr}.log";
+
+            var message = data.ToJson();
+            using (var sw = new StreamWriter(fileName, true ))
             {
                 await sw.WriteLineAsync(message);
             }
-            
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using SocialUpdatesAPI.Models;
 
 namespace SocialUpdatesAPI.Controllers
@@ -23,12 +17,12 @@ namespace SocialUpdatesAPI.Controllers
         }
 
         [HttpGet]
-         public async Task GetSocialUpdates()
-         {
-             var postItem = new PostItem();
-             await _context.SaveAsync(postItem);
+        public async Task GetSocialUpdates()
+        {
+            var postItem = new PostItem();
+            await _context.SaveAsync(postItem);
 
-         } 
+        }
 
         [Route("update")]
         [HttpPost]
@@ -42,7 +36,7 @@ namespace SocialUpdatesAPI.Controllers
             {
                 Id = postItem.Id,
                 Title = postItem.Title,
-                Description= postItem.Description,
+                Description = postItem.Description,
                 Photo = postItem.Photo
             };
 

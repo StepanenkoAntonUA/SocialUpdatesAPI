@@ -1,25 +1,40 @@
+using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NuGet.Packaging.Signing;
 using SocialUpdatesAPI.Models;
 using SocialUpdatesAPI.Store;
+using System;
 using System.Xml.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-
+ConfigureServices(builder.Services);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUpdateStore, UpdateStore>();
-builder.Services.AddDbContext<SocialUpdatesContext>(opt =>
-    opt.UseInMemoryDatabase("SocialUpdates"));
+
+
+builder.Services.AddCors(p =>
+{
+    p.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin();
+    });
+});
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (builder.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+
 }
 
 app.UseHttpsRedirection();
@@ -28,3 +43,7 @@ app.MapControllers();
 app.Run();
 
 
+void ConfigureServices(IServiceCollection services)
+{
+    services.AddTransient<SocialUpdatesContext>();
+}

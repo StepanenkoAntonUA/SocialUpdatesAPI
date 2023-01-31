@@ -21,14 +21,15 @@ namespace SocialUpdatesAPI.Controllers
         {
             _context = context;
         }
-        
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PostItemDTO>>> GetSocialUpdates()
-        {
-            return await _context.SocialUpdateItems
-                .Select(x => ItemToDTO(x))
-                .ToListAsync();
-        }
+         public async Task GetSocialUpdates()
+         {
+             var postItem = new PostItem();
+             await _context.SaveAsync(postItem);
+
+         } 
+
         [Route("update")]
         [HttpPost]
         public async Task CreateUpdate(PostItem postItem)

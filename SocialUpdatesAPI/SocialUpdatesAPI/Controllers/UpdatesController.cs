@@ -28,9 +28,10 @@ namespace SocialUpdatesAPI.Controllers
 
         [Route("update")]
         [HttpPost]
-        public async Task CreateUpdate(SocialUpdate postItem)
+        public async Task<SocialUpdate> CreateUpdate(SocialUpdate postItem)
         {
-            await _service.SaveAsync(postItem);
+            return await _service.SaveAsync(postItem);
+
         }
 
         [HttpGet("{id}")]
@@ -47,7 +48,7 @@ namespace SocialUpdatesAPI.Controllers
         
         [Route("SocialUpdate/{id}")]
         [HttpPost]
-        public async Task<IActionResult> UpdateTodoItem(Guid id, SocialUpdate socialUpdate)
+        public async Task<ActionResult<SocialUpdate>> UpdateSocialUpdate(Guid id, SocialUpdate socialUpdate)
         {
             if (id != socialUpdate.Id)
             {
@@ -64,17 +65,17 @@ namespace SocialUpdatesAPI.Controllers
 
             try
             {
-                await _service.UpdateAsync(socUpd);
+                await _service.UpdateAsync(id, socUpd);
             }
-            catch (Exception) when (!TodoItemExists(id))
+            catch (Exception) when (!SocialUpdateExists(id))
             {
                 return NotFound();
             }
 
-            return Ok();
+            return socUpd;
         }
 
-        private bool TodoItemExists(Guid id)
+        private bool SocialUpdateExists(Guid id)
         {
             var isExist = _service.GetSocialUpdateByIdAsync(id);
             return !(isExist == null);

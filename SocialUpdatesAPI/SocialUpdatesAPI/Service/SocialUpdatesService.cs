@@ -26,9 +26,10 @@ namespace SocialUpdatesAPI.Service
             _updateStore = updateStore;
         }
 
-        public async Task SaveAsync(SocialUpdate postItem)
+        public async Task<SocialUpdate> SaveAsync(SocialUpdate data)
         {
-            await _updateStore.SaveAsync(postItem);
+            return await _updateStore.SaveAsync(data);
+
         }
 
         public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)
@@ -37,9 +38,9 @@ namespace SocialUpdatesAPI.Service
            return socialUpdate;
         }
 
-        public async Task UpdateAsync(SocialUpdate data)
+        public async Task<SocialUpdate> UpdateAsync(Guid Id, SocialUpdate data)
         {
-            await _updateStore.UpdateAsync(data);
+            return await _updateStore.UpdateAsync(Id, data);
         }
     }
 }

@@ -3,6 +3,7 @@ using NuGet.Protocol;
 using System.Globalization;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace SocialUpdatesAPI.Store
 {
@@ -10,14 +11,16 @@ namespace SocialUpdatesAPI.Store
     {
         private Dictionary<Guid, SocialUpdate> _socialUpdateDic =  new Dictionary<Guid, SocialUpdate>();
 
-        public async Task SaveAsync(SocialUpdate data)
+        public async Task<SocialUpdate> SaveAsync(SocialUpdate data)
         {
             _socialUpdateDic.Add(data.Id, data);
+            return _socialUpdateDic[data.Id];
         }
 
-        public async Task UpdateAsync(SocialUpdate data)
+        public async Task<SocialUpdate> UpdateAsync(Guid Id, SocialUpdate data)
         {
-            _socialUpdateDic[data.Id] = data;
+            _socialUpdateDic[Id] = data;
+            return _socialUpdateDic[Id];
         }
 
         public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)

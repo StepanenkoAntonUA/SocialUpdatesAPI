@@ -2,21 +2,34 @@
 using NuGet.Protocol;
 using System.Globalization;
 using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SocialUpdatesAPI.Store
 {
     public class UpdateStore : IUpdateStore
     {
-        public async Task SaveAsync(PostItem data)
-        {          
-            var currentDir = Path.Combine(Directory.GetCurrentDirectory());
-            var currentTimeStr = DateTime.UtcNow.ToString("yyyyMMdd");
-            var fileName = $"{currentDir}\\{currentTimeStr}.log";
+        private Dictionary<Guid, SocialUpdate> _socialUpdateDic =  new Dictionary<Guid, SocialUpdate>();
 
-            var message = data.ToJson();
-            using (var sw = new StreamWriter(fileName, true ))
+        public async Task SaveAsync(SocialUpdate data)
+        {
+            _socialUpdateDic.Add(data.Id, data);
+        }
+
+        public async Task UpdateAsync(SocialUpdate data)
+        {
+            _socialUpdateDic[data.Id] = data;
+        }
+
+        public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)
+        {
+            try
             {
-                await sw.WriteLineAsync(message);
+                var socialUpdate = _socialUpdateDic[Id];
+                return socialUpdate;
+            }
+            catch (Exception) 
+            {
+                return null;
             }
         }
     }

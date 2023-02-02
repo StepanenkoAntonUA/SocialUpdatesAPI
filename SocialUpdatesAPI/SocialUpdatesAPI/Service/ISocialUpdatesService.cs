@@ -1,14 +1,12 @@
 ﻿using SocialUpdatesAPI.Models;
 
-namespace SocialUpdatesAPI.Store
+namespace SocialUpdatesAPI.Service
 {
-    public interface IUpdateStore
+    public interface ISocialUpdatesService
     {
         Task SaveAsync(SocialUpdate data);
         Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id);
         Task UpdateAsync(SocialUpdate data);
-
-
 
     }
 }

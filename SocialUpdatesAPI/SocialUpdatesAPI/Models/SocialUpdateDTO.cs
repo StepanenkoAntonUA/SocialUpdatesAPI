@@ -1,8 +1,9 @@
 ﻿namespace SocialUpdatesAPI.Models
 {
-    public class PostItem
+    public class SocialUpdateDTO
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Description { get; set; }
+        
     }
 }

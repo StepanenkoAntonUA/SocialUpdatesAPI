@@ -42,6 +42,11 @@ namespace SocialUpdatesAPI.Service
         {
             return await _updateStore.UpdateAsync(Id, data);
         }
+
+        public Task<SocialUpdate> DeleteAsync(Guid Id)
+        {
+            return _updateStore.DeleteAsync(Id);
+        }
     }
 }
 

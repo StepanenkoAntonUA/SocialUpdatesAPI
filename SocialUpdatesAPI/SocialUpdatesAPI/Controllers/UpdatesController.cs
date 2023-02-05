@@ -74,6 +74,12 @@ namespace SocialUpdatesAPI.Controllers
 
             return socUpd;
         }
+        
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<SocialUpdate>> DeleteUpdate(Guid id)
+        {
+            return await _service.DeleteAsync(id);
+        }
 
         private bool SocialUpdateExists(Guid id)
         {

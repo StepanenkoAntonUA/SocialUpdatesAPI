@@ -7,6 +7,7 @@ namespace SocialUpdatesAPI.Service
         Task<SocialUpdate> SaveAsync(SocialUpdate data);
         Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id);
         Task<SocialUpdate> UpdateAsync(Guid Id, SocialUpdate data);
+        Task<SocialUpdate> DeleteAsync(Guid Id);
 
     }
 }

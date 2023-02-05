@@ -19,11 +19,11 @@ namespace SocialUpdatesAPI.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetSocialUpdates()
-        {
-           return NoContent();
 
+        [HttpGet]
+        public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()
+        {
+            return await _service.GetSocialUpdateItems();
         }
 
         [Route("update")]

@@ -47,6 +47,11 @@ namespace SocialUpdatesAPI.Service
         {
             return _updateStore.DeleteAsync(Id);
         }
+
+        public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()
+        {
+            return await _updateStore.GetSocialUpdateItems();
+        }
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using SocialUpdatesAPI.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using SocialUpdatesAPI.Models;
 
 namespace SocialUpdatesAPI.Store
 {
@@ -8,6 +9,7 @@ namespace SocialUpdatesAPI.Store
         Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id);
         Task<SocialUpdate> UpdateAsync(Guid Id, SocialUpdate data);
         Task<SocialUpdate> DeleteAsync(Guid Id);
+        Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems();
 
 
 

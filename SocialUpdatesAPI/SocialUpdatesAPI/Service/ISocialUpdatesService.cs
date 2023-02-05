@@ -8,6 +8,7 @@ namespace SocialUpdatesAPI.Service
         Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id);
         Task<SocialUpdate> UpdateAsync(Guid Id, SocialUpdate data);
         Task<SocialUpdate> DeleteAsync(Guid Id);
+        Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems();
 
     }
 }

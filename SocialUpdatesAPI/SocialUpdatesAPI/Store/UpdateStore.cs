@@ -4,6 +4,7 @@ using System.Globalization;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Net.WebSockets;
 
 namespace SocialUpdatesAPI.Store
 {
@@ -46,6 +47,14 @@ namespace SocialUpdatesAPI.Store
             {
                 return null;
             }
+        }
+
+        public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()
+        {
+          var items = new List<SocialUpdate>(); 
+            foreach(SocialUpdate socialUpdate in _socialUpdateDic.Values)
+                items.Add(socialUpdate);
+            return items;
         }
     }
 }

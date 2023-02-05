@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialUpdatesAPI.Models;
 using SocialUpdatesAPI.Service;
 using System;
+using System.Net.WebSockets;
 
 namespace SocialUpdatesAPI.Controllers
 {
@@ -78,7 +79,8 @@ namespace SocialUpdatesAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<SocialUpdate>> DeleteUpdate(Guid id)
         {
-            return await _service.DeleteAsync(id);
+            var deletedItem = await _service.DeleteAsync(id);
+            return (deletedItem!= null) ? Ok(deletedItem) : NotFound();
         }
 
         private bool SocialUpdateExists(Guid id)

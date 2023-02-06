@@ -12,32 +12,33 @@ namespace SocialUpdatesAPI.Store
             return _socialUpdateDic[data.Id];
         }
 
-        public async Task<SocialUpdate> UpdateAsync(Guid Id, SocialUpdate data)
+        public async Task<SocialUpdate> UpdateAsync(Guid id, SocialUpdate data)
         {
-            _socialUpdateDic[Id] = data;
-            return _socialUpdateDic[Id];
+            _socialUpdateDic[id] = data;
+            return _socialUpdateDic[id];
         }
 
-        public async Task<SocialUpdate> DeleteAsync(Guid Id)
+        public async Task<SocialUpdate> DeleteAsync(Guid id)
         {
-            if (_socialUpdateDic.ContainsKey(Id))
+            if (_socialUpdateDic.ContainsKey(id))
             {
                 var deletedItem = new SocialUpdate();
-                _socialUpdateDic.Remove(Id, out deletedItem);
+                _socialUpdateDic.Remove(id, out deletedItem);
                 return deletedItem;
             }
             else
                 return null;
         }
 
-        public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)
+        public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid id)
         {
             // Updated с верхнего регистра почему-то. И почему updated при Get... ?
             SocialUpdate UpdatedItem = null;
+            SocialUpdate updatedItem = null;
 
-            _socialUpdateDic.TryGetValue(Id, out UpdatedItem);
+            _socialUpdateDic.TryGetValue(id, out updatedItem);
 
-            return UpdatedItem;
+            return updatedItem;
         }
 
         public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()

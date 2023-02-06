@@ -45,6 +45,7 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
+    // IoC должен работать через интерфейс.
     services.AddTransient<SocialUpdatesService>();
     
 

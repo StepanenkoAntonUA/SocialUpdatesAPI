@@ -18,12 +18,12 @@ namespace SocialUpdatesAPI.Store
             return _socialUpdateDic[id];
         }
 
-        public async Task<SocialUpdate> DeleteAsync(Guid Id)
+        public async Task<SocialUpdate> DeleteAsync(Guid id)
         {
-            if (_socialUpdateDic.ContainsKey(Id))
+            if (_socialUpdateDic.ContainsKey(id))
             {
                 var deletedItem = new SocialUpdate();
-                _socialUpdateDic.Remove(Id, out deletedItem);
+                _socialUpdateDic.Remove(id, out deletedItem);
                 return deletedItem;
             }
             else

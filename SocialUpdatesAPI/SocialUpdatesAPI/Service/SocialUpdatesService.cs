@@ -29,7 +29,6 @@ namespace SocialUpdatesAPI.Service
         public async Task<SocialUpdate> SaveAsync(SocialUpdate data)
         {
             return await _updateStore.SaveAsync(data);
-
         }
 
         public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)

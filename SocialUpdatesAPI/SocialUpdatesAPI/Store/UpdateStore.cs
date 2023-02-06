@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Net.WebSockets;
 
+// УДАЛЯЕМ ВСЕГДА ЛИШНИЕ using
+
 namespace SocialUpdatesAPI.Store
 {
     public class UpdateStore : IUpdateStore
     {
-        private Dictionary<Guid, SocialUpdate> _socialUpdateDic =  new Dictionary<Guid, SocialUpdate>();
+        private Dictionary<Guid, SocialUpdate> _socialUpdateDic = new Dictionary<Guid, SocialUpdate>();
 
         public async Task<SocialUpdate> SaveAsync(SocialUpdate data)
         {
@@ -28,22 +30,20 @@ namespace SocialUpdatesAPI.Store
         {
             var deletedItem = new SocialUpdate();
 
-            if (GetSocialUpdateByIdAsync(Id) != null)
+            if (GetSocialUpdateByIdAsync(Id) != null) // переделать через ContainsKey
                 _socialUpdateDic.Remove(Id, out deletedItem);
-               
-            return deletedItem;
-            
 
+            return deletedItem;
         }
 
         public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)
         {
             try
             {
-                var socialUpdate = _socialUpdateDic[Id];
+                var socialUpdate = _socialUpdateDic[Id]; // переделать через TryGetValue
                 return socialUpdate;
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 return null;
             }
@@ -51,10 +51,7 @@ namespace SocialUpdatesAPI.Store
 
         public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()
         {
-          var items = new List<SocialUpdate>(); 
-            foreach(SocialUpdate socialUpdate in _socialUpdateDic.Values)
-                items.Add(socialUpdate);
-            return items;
+            return _socialUpdateDic.Values.ToList();
         }
     }
 }

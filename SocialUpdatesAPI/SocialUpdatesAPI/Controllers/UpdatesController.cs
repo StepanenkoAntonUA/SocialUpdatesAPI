@@ -11,6 +11,7 @@ namespace SocialUpdatesAPI.Controllers
     [ApiController]
     public class UpdatesController : ControllerBase
     {
+        // использовать интерфейс вместо прямого обращения к классу
         private readonly SocialUpdatesService _service;
 
         public UpdatesController(
@@ -44,6 +45,7 @@ namespace SocialUpdatesAPI.Controllers
                 return NotFound();
             }
 
+            // а в других методах почему-то не ToDto. адо все в виде DTO возвращать
             return ItemToDTO(socialUpdate);
         }
         
@@ -61,7 +63,9 @@ namespace SocialUpdatesAPI.Controllers
             if (socUpd == null)
             {
                 return NotFound();
-            } 
+            }
+
+            // логику обновления вынести в IService. Правила обновления обьекста домена - бизнес-правила.
             socUpd.Description = socialUpdate.Description;
 
             try

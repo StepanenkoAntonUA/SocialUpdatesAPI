@@ -4,8 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NuGet.Packaging.Signing;
+using SocialUpdatesAPI.Models;
 using SocialUpdatesAPI.Service;
 using SocialUpdatesAPI.Store;
+using SocialUpdatesAPI.Store.Caches;
 using System;
 using System.Xml.Linq;
 
@@ -46,7 +48,10 @@ app.Run();
 void ConfigureServices(IServiceCollection services)
 {
     // IoC должен работать через интерфейс.
-    services.AddTransient<SocialUpdatesService>();
-    
+    services.AddTransient<ISocialUpdatesService, SocialUpdatesService>();
+
+    services.AddTransient<ICache<Guid, SocialUpdate>, UpdatesCacheRemote<Guid, SocialUpdate>>();
+    // Scoped
+    // Singleton
 
 }

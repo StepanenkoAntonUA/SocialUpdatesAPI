@@ -1,10 +1,14 @@
 ﻿using SocialUpdatesAPI.Models;
+using SocialUpdatesAPI.Store.Caches;
 
 namespace SocialUpdatesAPI.Store
 {
     public class UpdateStore : IUpdateStore
     {
-        private Dictionary<Guid, SocialUpdate> _socialUpdateDic = new Dictionary<Guid, SocialUpdate>();
+        private ICache<Guid, SocialUpdate> _socialUpdateDic;
+
+        public UpdateStore(ICache<Guid, SocialUpdate> _socialUpdateDic)
+        { }
 
         public async Task<SocialUpdate> SaveAsync(SocialUpdate data)
         {
@@ -16,6 +20,10 @@ namespace SocialUpdatesAPI.Store
         {
             _socialUpdateDic[id] = data;
             return _socialUpdateDic[id];
+
+            // сервис отправки постов по таймауту
+
+            // в текущий сервис добавить API добавления канала
         }
 
         public async Task<SocialUpdate> DeleteAsync(Guid id)
@@ -30,8 +38,28 @@ namespace SocialUpdatesAPI.Store
                 return null;
         }
 
-        public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid id)
+        public async Task<ISocialUpdate> GetSocialUpdateByIdAsync(Guid id)
         {
+
+            /* 
+             * preload cache на старте
+             * смотрим в кэш (Dictionary)
+                * если нет - забираем из БД Lazy Loading
+                * если есть - возвращаем сразу из кэша
+             * если в БД есть - добавляем в кэш
+             * тогда возвращаем
+             * 
+             * Решение проблемы памяти + CPU -> Remote Caching = Redis (Memcached, SQL, Elastic Search)
+            */
+
+            /*
+             * 1. лезем в БД
+             * 1.1. А что если БД тормозит
+             * 1.1.1. Сделаю Redis 
+             * 2. возвращем
+             * 
+             */
+
             SocialUpdate socialUpdatedItem = null;
 
             _socialUpdateDic.TryGetValue(id, out socialUpdatedItem);

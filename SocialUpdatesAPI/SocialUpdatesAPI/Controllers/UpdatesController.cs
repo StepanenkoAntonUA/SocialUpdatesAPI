@@ -21,13 +21,13 @@ namespace SocialUpdatesAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<SocialUpdateDTO>> GetSocialUpdateItems()
         {
-            var UpdateItems = await _service.GetSocialUpdateItems();
+            var updateItems = await _service.GetSocialUpdateItems();
 
-            var SocialUpdateDTOItems = UpdateItems
+            var socialUpdateDTOItems = updateItems
                                     .Select(x => SocialUpdateAdapter.ToDTO(x))
                                     .ToList();
 
-            return SocialUpdateDTOItems;
+            return socialUpdateDTOItems;
         }
 
         [Route("update")]

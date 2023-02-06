@@ -12,10 +12,10 @@ namespace SocialUpdatesAPI.Store
             return _socialUpdateDic[data.Id];
         }
 
-        public async Task<SocialUpdate> UpdateAsync(Guid Id, SocialUpdate data)
+        public async Task<SocialUpdate> UpdateAsync(Guid id, SocialUpdate data)
         {
-            _socialUpdateDic[Id] = data;
-            return _socialUpdateDic[Id];
+            _socialUpdateDic[id] = data;
+            return _socialUpdateDic[id];
         }
 
         public async Task<SocialUpdate> DeleteAsync(Guid Id)
@@ -30,13 +30,13 @@ namespace SocialUpdatesAPI.Store
                 return null;
         }
 
-        public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)
+        public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid id)
         {
-            SocialUpdate UpdatedItem = null;
+            SocialUpdate updatedItem = null;
 
-            _socialUpdateDic.TryGetValue(Id, out UpdatedItem);
+            _socialUpdateDic.TryGetValue(id, out updatedItem);
 
-            return UpdatedItem;
+            return updatedItem;
         }
 
         public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()

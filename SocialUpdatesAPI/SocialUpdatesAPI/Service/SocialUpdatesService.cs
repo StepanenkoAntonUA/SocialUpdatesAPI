@@ -29,9 +29,9 @@ namespace SocialUpdatesAPI.Service
             return await _updateStore.SaveAsync(data);
         }
 
-        public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)
+        public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid id)
         {
-            var socialUpdate = await _updateStore.GetSocialUpdateByIdAsync(Id);
+            var socialUpdate = await _updateStore.GetSocialUpdateByIdAsync(id);
             return socialUpdate;
         }
 
@@ -43,9 +43,9 @@ namespace SocialUpdatesAPI.Service
             return await _updateStore.UpdateAsync(id, socUpd);
         }
 
-        public Task<SocialUpdate> DeleteAsync(Guid Id)
+        public Task<SocialUpdate> DeleteAsync(Guid id)
         {
-            return _updateStore.DeleteAsync(Id);
+            return _updateStore.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()

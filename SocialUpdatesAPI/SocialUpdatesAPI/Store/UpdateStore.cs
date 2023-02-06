@@ -32,12 +32,11 @@ namespace SocialUpdatesAPI.Store
 
         public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid id)
         {
-            // почему updated при Get... ?
-            SocialUpdate updatedItem = null;
+            SocialUpdate socialUpdatedItem = null;
 
-            _socialUpdateDic.TryGetValue(id, out updatedItem);
+            _socialUpdateDic.TryGetValue(id, out socialUpdatedItem);
 
-            return updatedItem;
+            return socialUpdatedItem;
         }
 
         public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()

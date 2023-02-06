@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SocialUpdatesAPI\SocialUpdatesAPI\SocialUpdatesAPI.csproj" />
+  </ItemGroup>
+
 </Project>

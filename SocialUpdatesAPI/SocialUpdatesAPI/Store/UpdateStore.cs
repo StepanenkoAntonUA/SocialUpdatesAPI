@@ -32,8 +32,7 @@ namespace SocialUpdatesAPI.Store
 
         public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid id)
         {
-            // Updated с верхнего регистра почему-то. И почему updated при Get... ?
-            SocialUpdate UpdatedItem = null;
+            // почему updated при Get... ?
             SocialUpdate updatedItem = null;
 
             _socialUpdateDic.TryGetValue(id, out updatedItem);

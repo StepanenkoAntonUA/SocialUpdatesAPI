@@ -1,12 +1,4 @@
 ﻿using SocialUpdatesAPI.Models;
-using NuGet.Protocol;
-using System.Globalization;
-using Microsoft.Extensions.Hosting.Internal;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System.Net.WebSockets;
-
-// УДАЛЯЕМ ВСЕГДА ЛИШНИЕ using
 
 namespace SocialUpdatesAPI.Store
 {
@@ -28,25 +20,23 @@ namespace SocialUpdatesAPI.Store
 
         public async Task<SocialUpdate> DeleteAsync(Guid Id)
         {
-            var deletedItem = new SocialUpdate();
-
-            if (GetSocialUpdateByIdAsync(Id) != null) // переделать через ContainsKey
+            if (_socialUpdateDic.ContainsKey(Id))
+            {
+                var deletedItem = new SocialUpdate();
                 _socialUpdateDic.Remove(Id, out deletedItem);
-
-            return deletedItem;
+                return deletedItem;
+            }
+            else
+                return null;
         }
 
         public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)
         {
-            try
-            {
-                var socialUpdate = _socialUpdateDic[Id]; // переделать через TryGetValue
-                return socialUpdate;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            SocialUpdate UpdatedItem = null;
+
+            _socialUpdateDic.TryGetValue(Id, out UpdatedItem);
+
+            return UpdatedItem;
         }
 
         public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()

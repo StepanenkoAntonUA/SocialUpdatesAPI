@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SocialUpdatesAPI.Models;
 using SocialUpdatesAPI.Service;
-using System;
-using System.Net.WebSockets;
 
 namespace SocialUpdatesAPI.Controllers
 {
@@ -11,8 +8,7 @@ namespace SocialUpdatesAPI.Controllers
     [ApiController]
     public class UpdatesController : ControllerBase
     {
-        // использовать интерфейс вместо прямого обращения к классу
-        private readonly SocialUpdatesService _service;
+        private readonly ISocialUpdatesService _service;
 
         public UpdatesController(
             SocialUpdatesService service
@@ -23,17 +19,23 @@ namespace SocialUpdatesAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<SocialUpdate>> GetSocialUpdateItems()
+        public async Task<IEnumerable<SocialUpdateDTO>> GetSocialUpdateItems()
         {
-            return await _service.GetSocialUpdateItems();
+            var UpdateItems = await _service.GetSocialUpdateItems();
+
+            var SocialUpdateDTOItems = UpdateItems
+                                    .Select(x => SocialUpdateAdapter.ToDTO(x))
+                                    .ToList();
+
+            return SocialUpdateDTOItems;
         }
 
         [Route("update")]
         [HttpPost]
-        public async Task<SocialUpdate> CreateUpdate(SocialUpdate postItem)
+        public async Task<SocialUpdateDTO> CreateUpdate(SocialUpdate postItem)
         {
-            return await _service.SaveAsync(postItem);
-
+            var savedItem = await _service.SaveAsync(postItem);
+            return SocialUpdateAdapter.ToDTO(savedItem);
         }
 
         [HttpGet("{id}")]
@@ -45,13 +47,12 @@ namespace SocialUpdatesAPI.Controllers
                 return NotFound();
             }
 
-            // а в других методах почему-то не ToDto. адо все в виде DTO возвращать
-            return ItemToDTO(socialUpdate);
+            return SocialUpdateAdapter.ToDTO(socialUpdate);
         }
-        
+
         [Route("SocialUpdate/{id}")]
         [HttpPost]
-        public async Task<ActionResult<SocialUpdate>> UpdateSocialUpdate(Guid id, SocialUpdate socialUpdate)
+        public async Task<ActionResult<SocialUpdateDTO>> UpdateSocialUpdate(Guid id, SocialUpdate socialUpdate)
         {
             if (id != socialUpdate.Id)
             {
@@ -59,32 +60,27 @@ namespace SocialUpdatesAPI.Controllers
             }
 
             var socUpd = await _service.GetSocialUpdateByIdAsync(id);
-
             if (socUpd == null)
             {
                 return NotFound();
             }
 
-            // логику обновления вынести в IService. Правила обновления обьекста домена - бизнес-правила.
-            socUpd.Description = socialUpdate.Description;
-
             try
             {
-                await _service.UpdateAsync(id, socUpd);
+                var updatedItem = await _service.UpdateAsync(id, socialUpdate);
+                return SocialUpdateAdapter.ToDTO(updatedItem);
             }
             catch (Exception) when (!SocialUpdateExists(id))
             {
                 return NotFound();
             }
-
-            return socUpd;
         }
-        
+
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SocialUpdate>> DeleteUpdate(Guid id)
+        public async Task<ActionResult<SocialUpdateDTO>> DeleteUpdate(Guid id)
         {
             var deletedItem = await _service.DeleteAsync(id);
-            return (deletedItem!= null) ? Ok(deletedItem) : NotFound();
+            return (deletedItem != null) ? Ok(SocialUpdateAdapter.ToDTO(deletedItem)) : NotFound();
         }
 
         private bool SocialUpdateExists(Guid id)
@@ -92,13 +88,5 @@ namespace SocialUpdatesAPI.Controllers
             var isExist = _service.GetSocialUpdateByIdAsync(id);
             return !(isExist == null);
         }
-
-        private static SocialUpdateDTO ItemToDTO(SocialUpdate postItem) =>
-            new SocialUpdateDTO
-            {
-                Id = postItem.Id,
-                Description = postItem.Description,
-                
-            };
     }
 }

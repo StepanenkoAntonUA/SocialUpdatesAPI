@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SocialUpdatesAPI.Models;
+﻿using SocialUpdatesAPI.Models;
 
 namespace SocialUpdatesAPI.Store
 {

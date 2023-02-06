@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using SocialUpdatesAPI.Models;
+﻿using SocialUpdatesAPI.Models;
 using SocialUpdatesAPI.Store;
-using System.Diagnostics.CodeAnalysis;
 
 
 namespace SocialUpdatesAPI.Service
@@ -33,13 +31,16 @@ namespace SocialUpdatesAPI.Service
 
         public async Task<SocialUpdate> GetSocialUpdateByIdAsync(Guid Id)
         {
-           var socialUpdate  = await _updateStore.GetSocialUpdateByIdAsync(Id);
-           return socialUpdate;
+            var socialUpdate = await _updateStore.GetSocialUpdateByIdAsync(Id);
+            return socialUpdate;
         }
 
-        public async Task<SocialUpdate> UpdateAsync(Guid Id, SocialUpdate data)
+        public async Task<SocialUpdate> UpdateAsync(Guid id, SocialUpdate data)
         {
-            return await _updateStore.UpdateAsync(Id, data);
+            var socUpd = await GetSocialUpdateByIdAsync(id);
+            socUpd.Description = data.Description;
+
+            return await _updateStore.UpdateAsync(id, socUpd);
         }
 
         public Task<SocialUpdate> DeleteAsync(Guid Id)

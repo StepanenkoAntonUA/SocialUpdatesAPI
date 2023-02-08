@@ -1,8 +1,9 @@
 ﻿using PostsManagement.Models;
+using SocialUpdatesAPI.Store;
 
 namespace PostsManagement.Store
 {
-    public class PostsManagementStore : IPostsManagementStore
+    public class PostsManagementStore : IPostsManagementStore, ISocialGroupStore
     {
         private Dictionary<Guid, PlannedPost> _plannedDic = new Dictionary<Guid, PlannedPost>();
 

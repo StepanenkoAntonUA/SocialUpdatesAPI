@@ -17,7 +17,7 @@ namespace SocialUpdatesAPI.Service
          + 7. Добавить POST SocialUpdate для обновления SocialUpdate, в контроллер [2.5]
          + 8. Eventer добавить как проект этого Solution
          */
-        IUpdateStore _updateStore;
+        private IUpdateStore _updateStore;
 
         public SocialUpdatesService(IUpdateStore updateStore)
         {

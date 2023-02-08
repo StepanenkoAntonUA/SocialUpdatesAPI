@@ -11,7 +11,7 @@ namespace SocialUpdatesAPI.Controllers
         private readonly ISocialUpdatesService _service;
 
         public UpdatesController(
-            SocialUpdatesService service
+            ISocialUpdatesService service
             )
         {
             _service = service;

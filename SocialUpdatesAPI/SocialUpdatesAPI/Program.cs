@@ -15,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigureServices(builder.Services);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IUpdateStore, UpdateStore>();
+builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
+
 
 
 builder.Services.AddCors(p =>
@@ -45,8 +47,9 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
-    // IoC должен работать через интерфейс.
-    services.AddTransient<SocialUpdatesService>();
+    services.AddTransient<ISocialUpdatesService, SocialUpdatesService>();
+    services.AddTransient<ISocialGroupService, SocialGroupService>();
+
     
 
 }

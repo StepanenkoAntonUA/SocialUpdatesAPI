@@ -49,7 +49,4 @@ void ConfigureServices(IServiceCollection services)
 {
     services.AddTransient<ISocialUpdatesService, SocialUpdatesService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
-
-    
-
 }

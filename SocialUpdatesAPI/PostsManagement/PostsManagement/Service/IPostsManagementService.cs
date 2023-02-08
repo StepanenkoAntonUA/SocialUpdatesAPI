@@ -2,8 +2,9 @@
 
 namespace PostsManagement.Service
 {
-    public interface ISocialGroupsService
+    public interface IPostsManagementService
     {
         Task<PlannedPost> SaveAsync(PlannedPost data);
+        Task<IEnumerable<PlannedPost>> GetPlannedPostItemsAsync();
     }
 }

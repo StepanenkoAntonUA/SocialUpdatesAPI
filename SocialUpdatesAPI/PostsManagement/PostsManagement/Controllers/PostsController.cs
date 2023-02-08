@@ -6,16 +6,27 @@ namespace PostsManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-    public class SocialGroupsController : ControllerBase
+    public class PostsController : ControllerBase
     {
-        private readonly ISocialGroupsService _service;
+        private readonly IPostsManagementService _service;
 
-        public SocialGroupsController(
-            ISocialGroupsService service)
+        public PostsController(
+            IPostsManagementService service)
         {
             _service = service;
         }
+        [HttpGet]
+        public async Task<IEnumerable<PlannedPostDTO>> GetSocialUpdateItems()
+        {
+            var updateItems = await _service.GetPlannedPostItemsAsync();
+
+            var socialUpdateDTOItems = updateItems
+                                    .Select(x => PlannedPostAdapter.ToDTO(x))
+                                    .ToList();
+
+            return socialUpdateDTOItems;
+        }
+
 
         [Route("add")]
         [HttpPost]

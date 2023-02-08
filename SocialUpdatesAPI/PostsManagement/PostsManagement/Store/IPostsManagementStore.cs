@@ -2,7 +2,7 @@
 
 namespace PostsManagement.Store
 {
-    public interface ISocialGroupsStore
+    public interface IPostsManagementStore
     {
         Task<PlannedPost> SaveAsync(PlannedPost data);
         Task<IEnumerable<PlannedPost>> GetPlannedPostItemsAsync();

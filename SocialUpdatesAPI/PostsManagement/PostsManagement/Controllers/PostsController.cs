@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PostsManagement.Models;
 using PostsManagement.Service;
+using SocialUpdatesAPI.Models;
+using SocialUpdatesAPI.Service;
 
 namespace PostsManagement.Controllers
 {
@@ -8,31 +10,38 @@ namespace PostsManagement.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IPostsManagementService _service;
+        private readonly IPostsManagementService _servicePM;
+        private readonly ISocialGroupService _serviceSG;
 
-        public PostsController(
-            IPostsManagementService service)
+        public PostsController(IPostsManagementService servicePM, ISocialGroupService serviceSG)
         {
-            _service = service;
+            _servicePM = servicePM;
+            _serviceSG = serviceSG;
         }
+
         [HttpGet]
-        public async Task<IEnumerable<PlannedPostDTO>> GetSocialUpdateItems()
+        public async Task<IEnumerable<SocialGroup>> GetAllItems()
         {
-            var updateItems = await _service.GetPlannedPostItemsAsync();
-
+            var updateItems = await _serviceSG.GetAllAsync();
+            /*
             var socialUpdateDTOItems = updateItems
-                                    .Select(x => PlannedPostAdapter.ToDTO(x))
+                                   // .Select(x => PlannedPostAdapter.ToDTO(x))
                                     .ToList();
-
-            return socialUpdateDTOItems;
+            */
+            return updateItems;
         }
 
+        [HttpGet("{id}")]
+        public async Task<SocialGroup> GetByIdAsync(Guid id)
+        { 
+            return await _serviceSG.GetByIdAsync(id);
+        }
 
-        [Route("add")]
+        [Route("insert")]
         [HttpPost]
-        public async Task<PlannedPostDTO> CreateSocialPost(PlannedPost plannedPostItem)
+        public async Task<PlannedPostDTO> CreatePlannedPost(PlannedPost plannedPostItem)
         {
-            var savedItem = await _service.SaveAsync(plannedPostItem);
+            var savedItem = await _servicePM.SaveAsync(plannedPostItem);
             return PlannedPostAdapter.ToDTO(savedItem);
         }
     }

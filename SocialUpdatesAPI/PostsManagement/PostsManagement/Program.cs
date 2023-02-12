@@ -1,6 +1,7 @@
 using PostsManagement.Service;
 using PostsManagement.Store;
-
+using SocialUpdatesAPI.Service;
+using SocialUpdatesAPI.Store;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigureServices(builder.Services);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IPostsManagementStore, PostsManagementStore>();
+builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
+
 
 
 
@@ -40,6 +43,8 @@ app.Run();
 void ConfigureServices(IServiceCollection services)
 {
     services.AddTransient<IPostsManagementService, PostsManagementService>();
+    services.AddTransient<ISocialGroupService, SocialGroupService>();
+
 
 
 

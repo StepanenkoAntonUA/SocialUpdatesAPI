@@ -5,16 +5,26 @@ namespace SocialUpdatesAPI.Service
 {
     public class SocialGroupService : ISocialGroupService
     {
-        private ISocialGroupStore _socialPostStore;
+        private ISocialGroupStore _store;
 
         public SocialGroupService(ISocialGroupStore socialPostStore)
         {
-            _socialPostStore = socialPostStore;
+            _store = socialPostStore;
+        }
+
+        public Task<IEnumerable<SocialGroup>> GetAllAsync()
+        {
+            return _store.GetAllAsync();
+        }
+
+        public Task<SocialGroup> GetByIdAsync(Guid id)
+        {
+            return _store.GetByIdAsync(id);
         }
 
         public Task<SocialGroup> SaveAsync(SocialGroup data)
         {
-            return _socialPostStore.SaveAsync(data);
+            return _store.SaveAsync(data);
         }
     }
 }

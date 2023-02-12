@@ -1,5 +1,6 @@
 ﻿using PostsManagement.Models;
 using PostsManagement.Store;
+using SocialUpdatesAPI.Models;
 
 namespace PostsManagement.Service
 {
@@ -11,12 +12,6 @@ namespace PostsManagement.Service
         {
             _postsManagementStore = postsManagementStore;
         }
-
-        public async Task<IEnumerable<PlannedPost>> GetPlannedPostItemsAsync()
-        {
-            return await _postsManagementStore.GetPlannedPostItemsAsync();
-        }
-
         public async Task<PlannedPost> SaveAsync(PlannedPost data)
         {
             return await _postsManagementStore.SaveAsync(data);

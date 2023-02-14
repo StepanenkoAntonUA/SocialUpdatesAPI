@@ -2,14 +2,14 @@
 {
     public interface IEventBus
     {
-        void Publish(IEventAction @event);
+        void Publish(IEvent @event);
 
         void Subscribe<T, TH>()
-            where T : IEventAction
+            where T : IEvent
             where TH : IIntegrationEventHandler<T>;
 
         void Unsubscribe<T, TH>()
             where TH : IIntegrationEventHandler<T>
-            where T : IEventAction;
+            where T : IEvent;
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eventer.Events
 {
-    public interface IEventAction 
+    public interface IEvent 
     {
         public string EventId { get; set; }
         public DateTime EventTime { get; set; }

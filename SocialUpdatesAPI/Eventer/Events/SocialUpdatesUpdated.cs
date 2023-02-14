@@ -4,7 +4,7 @@ using SocialUpdatesAPI.Models;
 
 namespace Eventer.Events
 {
-    public class SocialUpdatesUpdated : IEventAction
+    public class SocialUpdatesUpdated : IEvent
     {
         public string EventId { get; set; }
         public DateTime EventTime { get; set; }

@@ -9,9 +9,15 @@ using System.Threading.Tasks;
 
 namespace Eventer.Events
 {
-    public class SocialUpdatesDeleted : IEventAction
+    public class SocialUpdatesDeleted : IEvent
     {
         public string EventId { get; set; }
         public DateTime EventTime { get; set; }
+
+        public SocialUpdatesDeleted(string eventId, DateTime eventTime)
+        {
+            EventId = eventId;
+            EventTime = eventTime;
+        }
     }
 }

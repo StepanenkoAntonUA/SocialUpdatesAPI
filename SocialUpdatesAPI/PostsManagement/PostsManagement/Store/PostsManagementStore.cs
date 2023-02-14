@@ -13,10 +13,12 @@ namespace PostsManagement.Store
             _store = store;
         }
 
+        // обьявление переменных в одном месте должно быть. Dictinary почему-о тут а _store выше конструктора
         private Dictionary<Guid, PlannedPost> _plannedDic = new Dictionary<Guid, PlannedPost>();
 
         public async Task<PlannedPost> SaveAsync(PlannedPost data)
         {
+            // хорошо что, не _plannedDick. Не надо укорачивать слова.
             _plannedDic.TryAdd(data.Id, data);
             return _plannedDic[data.Id];
         }

@@ -6,6 +6,7 @@ namespace PostsManagement.Service
 {
     public class PostsManagementService : IPostsManagementService
     {
+        // Скорей не PostsManagementStore а PostsStore. Т.к. это "хранилище постов" а не "хранилище менеджеров постов". Звучит "грубо и обидно"...
         private IPostsManagementStore _postsManagementStore;
 
         public PostsManagementService(IPostsManagementStore postsManagementStore)

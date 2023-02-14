@@ -16,8 +16,17 @@ namespace PostsManagement.Controllers
         public PostsController(IPostsManagementService servicePM, ISocialGroupService serviceSG)
         {
             _servicePM = servicePM;
+            // вот эти все PM, SG, HF, AA, BB, CC, JGDHJGHDJD и подобное - это полный бред выдуманный начинающими разработчиками. В реальности это все потом сильно усложняет восприятие кода. Писать нормально, полными словами. Чтобы потом никто не пытался догадаться на 100500 строке кода, что такое абревиатура AA, Ab и подобное.
             _serviceSG = serviceSG;
         }
+
+        /*
+         * Задание было: Добавить контроллер Posts в PostsManagement с Insert нового PlannedPost точно так же в Store с Dictionary
+         * Вопрос:  зачем здесь GetAll, GetById?
+         * НЕ надо делать лишнего!
+         * 
+         * И не надо контроллер Posts  использовать для CRUD SocialGroup. Этот контролер только для Posts
+         */
 
         [HttpGet]
         public async Task<IEnumerable<SocialGroup>> GetAllItems()

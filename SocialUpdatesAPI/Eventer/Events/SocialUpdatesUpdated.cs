@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SocialUpdatesAPI.Controllers;
-using SocialUpdatesAPI.Models;
-
-namespace Eventer.Events
+﻿namespace Eventer.Events
 {
     public class SocialUpdatesUpdated : IEvent
     {

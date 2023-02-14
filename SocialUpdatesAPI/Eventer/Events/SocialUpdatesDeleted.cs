@@ -13,11 +13,5 @@ namespace Eventer.Events
     {
         public string EventId { get; set; }
         public DateTime EventTime { get; set; }
-
-        public SocialUpdatesDeleted(string eventId, DateTime eventTime)
-        {
-            EventId = eventId;
-            EventTime = eventTime;
-        }
     }
 }

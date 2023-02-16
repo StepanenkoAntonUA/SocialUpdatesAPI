@@ -6,16 +6,6 @@ namespace SocialUpdateModule.Services
     public class SocialUpdatesService : ISocialUpdatesService
     {
 
-        /*
-         + 1. заменить на IService. Создать ISocialUpdateService [1]
-         + 2. IUpdateStore нельзя наследовать контексты от IStore [0]
-         + 3. Не PostItem а SocialUpdate [0.5]
-         + 4. В IUpdateStore сделать Dictionary, который хранит ключ-значение { GUID:SocialUpdate.Id, SocialUpdate:SocialUpdate } [3]
-         + 5. Писать добавляемые SocialUpdate в Dictionary [2]
-         + 6. Добавить GET by SocialUpdate.Id в контроллер [1.5]
-         + 7. Добавить POST SocialUpdate для обновления SocialUpdate, в контроллер [2.5]
-         + 8. Eventer добавить как проект этого Solution
-         */
         private IUpdateStore _updateStore;
 
         public SocialUpdatesService(IUpdateStore updateStore)

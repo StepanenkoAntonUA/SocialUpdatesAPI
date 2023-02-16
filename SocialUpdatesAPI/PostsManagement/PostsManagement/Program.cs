@@ -1,14 +1,12 @@
-using PostsManagement.Service;
-using PostsManagement.Store;
-using SocialUpdatesAPI.Service;
-using SocialUpdatesAPI.Store;
+using SocialUpdateModule.Services;
+using SocialUpdateModule.Stores;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 ConfigureServices(builder.Services);
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IPostsManagementStore, PostsManagementStore>();
+builder.Services.AddSingleton<IPostsStore, PostsStore>();
 builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
 
 

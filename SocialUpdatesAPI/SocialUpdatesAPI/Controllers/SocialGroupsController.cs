@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SocialUpdatesAPI.Models;
-using SocialUpdatesAPI.Service;
+using SocialUpdateModule.Models;
+using SocialUpdateModule.Services;
+using SocialUpdatesAPI.Adapters;
+using SocialUpdatesAPI.DTO;
 
 namespace SocialUpdatesAPI.Controllers
-{        
+{
     [Route("api/[controller]")]
     [ApiController]
-    
+
     public class SocialGroupsController : ControllerBase
     {
         private readonly ISocialGroupService _service;
@@ -19,8 +21,11 @@ namespace SocialUpdatesAPI.Controllers
 
         [Route("add")]
         [HttpPost]
-        public async Task<SocialGroupDTO> CreateSocialPost(SocialGroup socialPostItem)
+        public async Task<ActionResult> CreateSocialGroupAsync(SocialGroupItemDTO socialGroupDTO)
         {
+
+            var socialGroup = SocialGroupAdapter.FromDTO(socialGroupDTO);
+
             /*
              * 1. CreateSocialPost сам action async но в наименовании async не добавлен. Добавить.
              * 2. (SocialGroup socialPostItem) - принимать DTO
@@ -29,8 +34,8 @@ namespace SocialUpdatesAPI.Controllers
              * 
              * ГЛАВНОЕ - судя по самой задаче - здесь должно быть добавление именно SocialGroup а не SocialPost. Потому похоже что наименование метода не правильное
              */
-            var savedItem = await _service.SaveAsync(socialPostItem);
-            return SocialGroupAdapter.ToDTO(savedItem);
+           await _service.SaveAsync(socialGroup);
+           return Ok();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SocialUpdatesAPI.Models;
-using SocialUpdatesAPI.Service;
+using SocialUpdateModule.Models;
+using SocialUpdateModule.Services;
+using SocialUpdatesAPI.Adapters;
+using SocialUpdatesAPI.DTO;
 
 namespace SocialUpdatesAPI.Controllers
 {
@@ -32,7 +34,7 @@ namespace SocialUpdatesAPI.Controllers
 
         [Route("update")]
         [HttpPost]
-        public async Task<SocialUpdateDTO> CreateUpdate(SocialUpdate postItem)
+        public async Task<SocialUpdateDTO> CreateUpdate(SocialUpdateItem postItem)
         {
             var savedItem = await _service.SaveAsync(postItem);
             return SocialUpdateAdapter.ToDTO(savedItem);
@@ -52,7 +54,7 @@ namespace SocialUpdatesAPI.Controllers
 
         [Route("SocialUpdate/{id}")]
         [HttpPost]
-        public async Task<ActionResult<SocialUpdateDTO>> UpdateSocialUpdate(Guid id, SocialUpdate socialUpdate)
+        public async Task<ActionResult<SocialUpdateDTO>> UpdateSocialUpdate(Guid id, SocialUpdateItem socialUpdate)
         {
             if (id != socialUpdate.Id)
             {

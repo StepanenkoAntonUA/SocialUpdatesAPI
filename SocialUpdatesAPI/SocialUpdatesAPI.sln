@@ -7,7 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialUpdatesAPI", "SocialU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventer", "Eventer\Eventer.csproj", "{176F8314-519D-47FF-B748-27D4F5DAF446}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostsManagement", "PostsManagement\PostsManagement\PostsManagement.csproj", "{C6856D25-FDBA-4D50-BE37-2A46F9F93A8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostsManagement", "PostsManagement\PostsManagement\PostsManagement.csproj", "{C6856D25-FDBA-4D50-BE37-2A46F9F93A8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialUpdateModule", "SocialUpdate.Core\SocialUpdateModule.csproj", "{7443B0F0-1B67-45C8-BEDA-51FF3B630CEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{AE37D25A-0DC1-4D2B-93F8-33A067BEE9EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebServices", "WebServices", "{C734542E-5B18-47D9-998F-E19DA4DEB5A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostsManagementApp", "PostsManagementApp", "{A1D6229F-8699-4103-B9A1-8DA6C96A9447}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SocialUpdatesApp", "SocialUpdatesApp", "{9A3C68D0-78E6-4701-B5D9-A3D2307DF351}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +37,20 @@ Global
 		{C6856D25-FDBA-4D50-BE37-2A46F9F93A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6856D25-FDBA-4D50-BE37-2A46F9F93A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6856D25-FDBA-4D50-BE37-2A46F9F93A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7443B0F0-1B67-45C8-BEDA-51FF3B630CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7443B0F0-1B67-45C8-BEDA-51FF3B630CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7443B0F0-1B67-45C8-BEDA-51FF3B630CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7443B0F0-1B67-45C8-BEDA-51FF3B630CEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5DA52DF7-1604-46EF-9DAB-4E8618855691} = {9A3C68D0-78E6-4701-B5D9-A3D2307DF351}
+		{C6856D25-FDBA-4D50-BE37-2A46F9F93A8B} = {A1D6229F-8699-4103-B9A1-8DA6C96A9447}
+		{7443B0F0-1B67-45C8-BEDA-51FF3B630CEA} = {AE37D25A-0DC1-4D2B-93F8-33A067BEE9EA}
+		{A1D6229F-8699-4103-B9A1-8DA6C96A9447} = {C734542E-5B18-47D9-998F-E19DA4DEB5A0}
+		{9A3C68D0-78E6-4701-B5D9-A3D2307DF351} = {C734542E-5B18-47D9-998F-E19DA4DEB5A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89D5E0B8-FFDB-4DB5-A55A-B14A9C8C8391}

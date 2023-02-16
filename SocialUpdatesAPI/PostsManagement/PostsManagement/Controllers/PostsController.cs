@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PostsManagement.Models;
-using PostsManagement.Service;
-using SocialUpdatesAPI.Models;
-using SocialUpdatesAPI.Service;
+using PostsManagement.Adapters;
+using PostsManagement.DTO;
+using SocialUpdateModule.Models;
+using SocialUpdateModule.Services;
 
 namespace PostsManagement.Controllers
 {
@@ -10,14 +10,12 @@ namespace PostsManagement.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IPostsManagementService _servicePM;
-        private readonly ISocialGroupService _serviceSG;
+        private readonly IPostsManagementService _postsManagmentService;
 
-        public PostsController(IPostsManagementService servicePM, ISocialGroupService serviceSG)
+        public PostsController(IPostsManagementService postsManagmentService)
         {
-            _servicePM = servicePM;
+            _postsManagmentService = postsManagmentService;
             // вот эти все PM, SG, HF, AA, BB, CC, JGDHJGHDJD и подобное - это полный бред выдуманный начинающими разработчиками. В реальности это все потом сильно усложняет восприятие кода. Писать нормально, полными словами. Чтобы потом никто не пытался догадаться на 100500 строке кода, что такое абревиатура AA, Ab и подобное.
-            _serviceSG = serviceSG;
         }
 
         /*
@@ -27,30 +25,38 @@ namespace PostsManagement.Controllers
          * 
          * И не надо контроллер Posts  использовать для CRUD SocialGroup. Этот контролер только для Posts
          */
-
+        /*
         [HttpGet]
-        public async Task<IEnumerable<SocialGroup>> GetAllItems()
+        public async Task<IEnumerable<SocialGroupItem>> GetAllItems()
         {
-            var updateItems = await _serviceSG.GetAllAsync();
-            /*
-            var socialUpdateDTOItems = updateItems
+            var updateItems = await _serviceSocialGroup.GetAllAsync();
+            //var socialUpdateDTOItems = updateItems
                                    // .Select(x => PlannedPostAdapter.ToDTO(x))
                                     .ToList();
-            */
-            return updateItems;
+            
+            //return updateItems;
         }
 
         [HttpGet("{id}")]
-        public async Task<SocialGroup> GetByIdAsync(Guid id)
-        { 
-            return await _serviceSG.GetByIdAsync(id);
+        public async Task<SocialGroupItem> GetByIdAsync(Guid id)
+        {
+            return await _serviceSocialGroup.GetByIdAsync(id);
         }
+        */
 
+
+        //Добавил "заглушку" что бы при запуске проекта не было "Страница localhost не найдена"
+         [HttpGet]
+         public async Task<ActionResult> GetAllItems()
+         {
+             return Ok();
+         }
+        
         [Route("insert")]
         [HttpPost]
         public async Task<PlannedPostDTO> CreatePlannedPost(PlannedPost plannedPostItem)
         {
-            var savedItem = await _servicePM.SaveAsync(plannedPostItem);
+            var savedItem = await _postsManagmentService.SaveAsync(plannedPostItem);
             return PlannedPostAdapter.ToDTO(savedItem);
         }
     }

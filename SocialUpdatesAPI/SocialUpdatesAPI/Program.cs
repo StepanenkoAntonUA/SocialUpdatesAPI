@@ -1,13 +1,5 @@
-using Microsoft.AspNetCore.Razor.Language;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using NuGet.Packaging.Signing;
-using SocialUpdatesAPI.Service;
-using SocialUpdatesAPI.Store;
-using System;
-using System.Xml.Linq;
+using SocialUpdateModule.Services;
+using SocialUpdateModule.Stores;
 
 var builder = WebApplication.CreateBuilder(args);
 

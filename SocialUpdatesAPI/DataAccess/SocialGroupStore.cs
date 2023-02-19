@@ -1,7 +1,6 @@
-﻿using SocialUpdateModule.Models;
-using System.Collections.Generic;
+﻿using Models;
 
-namespace SocialUpdateModule.Stores
+namespace DataAccess
 {
     public class SocialGroupStore : ISocialGroupStore
     {

@@ -1,8 +1,8 @@
-﻿using SocialUpdateModule.Models;
+﻿using Models;
 
-namespace SocialUpdateModule.Services
+namespace DataAccess
 {
-    public interface ISocialGroupService
+    public interface ISocialGroupStore
     {
         Task<SocialGroupItem> SaveAsync(SocialGroupItem data);
         Task<IEnumerable<SocialGroupItem>> GetAllAsync();

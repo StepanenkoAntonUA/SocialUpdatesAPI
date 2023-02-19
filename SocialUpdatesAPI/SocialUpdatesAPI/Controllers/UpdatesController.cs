@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SocialUpdateModule.Models;
-using SocialUpdateModule.Services;
+﻿using Domain;
+using Microsoft.AspNetCore.Mvc;
+using Models;
 using SocialUpdatesAPI.Adapters;
 using SocialUpdatesAPI.DTO;
 

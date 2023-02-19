@@ -1,7 +1,7 @@
-﻿using SocialUpdateModule.Models;
-using SocialUpdateModule.Stores;
+﻿using DataAccess;
+using Models;
 
-namespace SocialUpdateModule.Services
+namespace Domain
 {
     public class SocialUpdatesService : ISocialUpdatesService
     {

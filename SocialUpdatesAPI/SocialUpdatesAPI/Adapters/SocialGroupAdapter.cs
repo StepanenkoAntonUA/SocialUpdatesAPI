@@ -1,4 +1,4 @@
-﻿using SocialUpdateModule.Models;
+﻿using Models;
 using SocialUpdatesAPI.DTO;
 
 

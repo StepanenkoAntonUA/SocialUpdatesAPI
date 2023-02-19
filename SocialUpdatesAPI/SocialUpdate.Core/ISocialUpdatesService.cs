@@ -1,6 +1,6 @@
-﻿using SocialUpdateModule.Models;
+﻿using Models;
 
-namespace SocialUpdateModule.Services
+namespace Domain
 {
     public interface ISocialUpdatesService
     {

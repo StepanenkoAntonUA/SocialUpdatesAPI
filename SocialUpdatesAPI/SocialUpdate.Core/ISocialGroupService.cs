@@ -1,9 +1,10 @@
 ﻿using Models;
 
-namespace PostsManagement.Stores
+namespace Domain
 {
-    public interface ISocialGroupsStore
+    public interface ISocialGroupService
     {
+        Task<SocialGroupItem> SaveAsync(SocialGroupItem data);
         Task<IEnumerable<SocialGroupItem>> GetAllAsync();
         Task<SocialGroupItem> GetByIdAsync(Guid id);
     }

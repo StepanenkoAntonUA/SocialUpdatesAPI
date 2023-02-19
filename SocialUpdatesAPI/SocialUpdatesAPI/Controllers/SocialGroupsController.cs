@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SocialUpdateModule.Models;
-using SocialUpdateModule.Services;
+﻿using Domain;
+using Microsoft.AspNetCore.Mvc;
 using SocialUpdatesAPI.Adapters;
 using SocialUpdatesAPI.DTO;
 
@@ -24,9 +23,9 @@ namespace SocialUpdatesAPI.Controllers
         public async Task<ActionResult> CreateSocialGroupAsync(SocialGroupItemDTO socialGroupDTO)
         {
 
-           var socialGroup = SocialGroupAdapter.FromDTO(socialGroupDTO);
-           await _service.SaveAsync(socialGroup);
-           return Ok();
+            var socialGroup = SocialGroupAdapter.FromDTO(socialGroupDTO);
+            await _service.SaveAsync(socialGroup);
+            return Ok();
         }
     }
 }

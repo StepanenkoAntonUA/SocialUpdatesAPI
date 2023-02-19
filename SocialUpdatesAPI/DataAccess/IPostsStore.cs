@@ -1,10 +1,9 @@
-﻿using SocialUpdateModule.Models;
+﻿using Models;
 
-namespace SocialUpdateModule.Stores
+namespace DataAccess
 {
     public interface IPostsStore
     {
         Task<PlannedPost> SaveAsync(PlannedPost data);
-
     }
 }

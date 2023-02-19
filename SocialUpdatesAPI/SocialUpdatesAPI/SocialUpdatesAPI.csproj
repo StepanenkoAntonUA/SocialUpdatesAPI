@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SocialUpdate.Core\SocialUpdateModule.csproj" />
+    <ProjectReference Include="..\SocialUpdate.Core\Domain.csproj" />
   </ItemGroup>
 
 </Project>

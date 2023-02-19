@@ -1,5 +1,5 @@
-using SocialUpdateModule.Services;
-using SocialUpdateModule.Stores;
+using DataAccess;
+using Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 

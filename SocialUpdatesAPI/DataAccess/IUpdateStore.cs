@@ -1,6 +1,6 @@
-﻿using SocialUpdateModule.Models;
+﻿using Models;
 
-namespace SocialUpdateModule.Stores
+namespace DataAccess
 {
     public interface IUpdateStore
     {
@@ -9,8 +9,5 @@ namespace SocialUpdateModule.Stores
         Task<SocialUpdateItem> UpdateAsync(Guid id, SocialUpdateItem data);
         Task<SocialUpdateItem> DeleteAsync(Guid id);
         Task<IEnumerable<SocialUpdateItem>> GetSocialUpdateItems();
-
-
-
     }
 }

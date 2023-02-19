@@ -1,5 +1,5 @@
-﻿using PostsManagement.DTO;
-using SocialUpdateModule.Models;
+﻿using Models;
+using PostsManagement.DTO;
 
 namespace PostsManagement.Adapters
 {

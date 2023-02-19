@@ -1,6 +1,6 @@
-﻿using SocialUpdateModule.Models;
+﻿using Models;
 
-namespace SocialUpdateModule.Stores
+namespace DataAccess
 {
     public class UpdateStore : IUpdateStore
     {

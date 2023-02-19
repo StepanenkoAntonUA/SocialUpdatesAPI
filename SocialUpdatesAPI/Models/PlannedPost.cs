@@ -1,4 +1,4 @@
-﻿namespace SocialUpdateModule.Models
+﻿namespace Models
 {
     public class PlannedPost
     {

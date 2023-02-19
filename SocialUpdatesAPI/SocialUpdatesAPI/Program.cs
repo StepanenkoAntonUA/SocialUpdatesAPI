@@ -1,15 +1,12 @@
-using SocialUpdateModule.Services;
-using SocialUpdateModule.Stores;
+using DataAccess;
+using Domain;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 ConfigureServices(builder.Services);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IUpdateStore, UpdateStore>();
 builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
-
-
 
 builder.Services.AddCors(p =>
 {
@@ -23,7 +20,6 @@ builder.Services.AddCors(p =>
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 if (builder.Environment.IsDevelopment())
 {
@@ -35,7 +31,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
-
 
 void ConfigureServices(IServiceCollection services)
 {

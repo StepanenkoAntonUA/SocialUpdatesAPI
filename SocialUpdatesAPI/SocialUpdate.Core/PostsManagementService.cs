@@ -1,15 +1,15 @@
-﻿using SocialUpdateModule.Models;
-using SocialUpdateModule.Stores;
+﻿using DataAccess;
+using Models;
 
-namespace SocialUpdateModule.Services
+namespace Domain
 {
     public class PostsManagementService : IPostsManagementService
     {
         private IPostsStore _postsStore;
 
-        public PostsManagementService(IPostsStore postsManagementStore)
+        public PostsManagementService(IPostsStore postsStore)
         {
-            _postsStore = postsManagementStore;
+            _postsStore = postsStore;
         }
         public async Task<PlannedPost> SaveAsync(PlannedPost data)
         {

@@ -1,6 +1,6 @@
-﻿using SocialUpdateModule.Models;
+﻿using Models;
 
-namespace SocialUpdateModule.Stores
+namespace DataAccess
 {
     public class PostsStore : IPostsStore
     {
@@ -10,7 +10,6 @@ namespace SocialUpdateModule.Stores
         {
             _store = store;
         }
-
         public async Task<PlannedPost> SaveAsync(PlannedPost data)
         {
             data.Id = Guid.NewGuid();

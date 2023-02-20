@@ -16,7 +16,6 @@ namespace Eventer.Events
             where T : IEvent
             where TH : IIntegrationEventHandler<T>
         {
-            var eventTypeName = @event.GetType().FullName; 
             if (eventDictionary.ContainsKey(@event.EventTypeName))
             {
                 var allValues = eventDictionary[@event.EventTypeName];

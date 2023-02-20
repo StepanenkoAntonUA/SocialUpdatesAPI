@@ -17,6 +17,5 @@ namespace Eventer.Events
                 return GetType().FullName;
             }
         }
-
     }
 }

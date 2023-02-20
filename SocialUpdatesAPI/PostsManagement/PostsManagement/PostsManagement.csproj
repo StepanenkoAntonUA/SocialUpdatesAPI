@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Eventer\Eventer.csproj" />
     <ProjectReference Include="..\..\SocialUpdatesAPI\SocialUpdatesAPI.csproj" />
   </ItemGroup>
 

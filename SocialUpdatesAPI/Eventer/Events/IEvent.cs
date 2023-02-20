@@ -10,5 +10,13 @@ namespace Eventer.Events
     {
         public string EventId { get; set; }
         public DateTime EventTime { get; set; }
+        public string EventTypeName
+        {
+            get
+            {
+                return GetType().FullName;
+            }
+        }
+
     }
 }

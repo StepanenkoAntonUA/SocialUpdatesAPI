@@ -1,5 +1,6 @@
 using DataAccess;
 using Domain;
+using Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

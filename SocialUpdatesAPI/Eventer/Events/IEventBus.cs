@@ -4,7 +4,7 @@
     {
         void Publish(IEvent @event);
 
-        void Subscribe<T, TH>()
+        void Subscribe<T, TH>(IEvent @event, IIntegrationEventHandler<IEvent> eventHandler)
             where T : IEvent
             where TH : IIntegrationEventHandler<T>;
 

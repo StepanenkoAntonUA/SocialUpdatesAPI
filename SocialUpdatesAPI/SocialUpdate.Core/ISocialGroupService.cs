@@ -1,6 +1,6 @@
 ﻿using Models;
 
-namespace Domain
+namespace Domain.Services
 {
     public interface ISocialGroupService
     {

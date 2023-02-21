@@ -46,10 +46,10 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<IPostsManagementService, PostsManagementService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
 
-    var list = new List<IIntegrationEventHandler<IEvent>>();
     var eventBus = new MemoEventBus();
-
-    eventBus.Subscribe(SocialUpdatesAdded, list);
+    var handler = new IntegrationEventHandler();
+    
+    eventBus.Subscribe(typeof(SocialUpdatesAdded).FullName, handler);
 
 
 }

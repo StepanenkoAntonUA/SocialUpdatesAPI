@@ -47,9 +47,9 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialGroupService, SocialGroupService>();
 
     var list = new List<IIntegrationEventHandler<IEvent>>();
-    var eventCollection = new MemoEventBus()
-        .Subscribe(SocialUpdatesAdded, list)
-        ;
+    var eventBus = new MemoEventBus();
+
+    eventBus.Subscribe(SocialUpdatesAdded, list);
 
 
 }

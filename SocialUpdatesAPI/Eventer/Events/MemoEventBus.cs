@@ -12,20 +12,19 @@ namespace Eventer.Events
             throw new NotImplementedException();
         }
 
-        public void Subscribe<T, TH>(IEvent @event, IIntegrationEventHandler<IEvent> eventHandler)
-            where T : IEvent
-            where TH : IIntegrationEventHandler<T>
+        public void Subscribe(string eventTypeName, IIntegrationEventHandler<IEvent> eventHandler)
         {
-            if (eventDictionary.ContainsKey(@event.EventTypeName))
+            if (!eventDictionary.ContainsKey(eventTypeName))
             {
-                var allValues = eventDictionary[@event.EventTypeName];
-                var checkValues = allValues.Contains(eventHandler);
-                if (!checkValues) eventDictionary[@event.EventTypeName].Add(eventHandler);
+                eventDictionary.TryAdd(eventTypeName, new List<IIntegrationEventHandler<IEvent>> { eventHandler });
+                return;
             }
-            else
+
+            var allHandlers = eventDictionary[eventTypeName];
+            if (!allHandlers.Contains(eventHandler)) 
             {
-                eventDictionary.TryAdd(@event.EventTypeName, new List<IIntegrationEventHandler<IEvent>> { eventHandler });
-            }
+                eventDictionary[eventTypeName].Add(eventHandler);
+            };
         }
 
         public void Unsubscribe<T, TH>()

@@ -4,9 +4,7 @@
     {
         void Publish(IEvent @event);
 
-        void Subscribe<T, TH>(IEvent @event, IIntegrationEventHandler<IEvent> eventHandler)
-            where T : IEvent
-            where TH : IIntegrationEventHandler<T>;
+        void Subscribe(string eventTypeName, IIntegrationEventHandler<IEvent> eventHandler);
 
         void Unsubscribe<T, TH>()
             where TH : IIntegrationEventHandler<T>

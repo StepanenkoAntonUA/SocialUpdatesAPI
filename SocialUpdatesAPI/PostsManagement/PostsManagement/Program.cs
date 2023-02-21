@@ -1,6 +1,8 @@
 using DataAccess;
 using Domain;
 using Domain.Services;
+using Eventer.Events;
+using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +46,10 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<IPostsManagementService, PostsManagementService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
 
-
+    var list = new List<IIntegrationEventHandler<IEvent>>();
+    var eventCollection = new MemoEventBus()
+        .Subscribe(SocialUpdatesAdded, list)
+        ;
 
 
 }

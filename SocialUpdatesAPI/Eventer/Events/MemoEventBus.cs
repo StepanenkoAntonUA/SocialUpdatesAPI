@@ -4,7 +4,7 @@ namespace Eventer.Events
 {
     public class MemoEventBus : IEventBus
     {
-        private static ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> eventDictionary =
+        private ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> eventDictionary =
             new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
         
         public void Publish(IEvent @event)

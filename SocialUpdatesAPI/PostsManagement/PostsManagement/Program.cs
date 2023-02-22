@@ -47,7 +47,5 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialGroupService, SocialGroupService>();
 
     var eventBus = new MemoEventBus();
-    eventBus.Subscribe(typeof(SocialUpdatesAdded).FullName, Activator.CreateInstance(typeof(IIntegrationEventHandler<IEvent>)) as IIntegrationEventHandler<IEvent>);
-
-
+    eventBus.Subscribe(typeof(SocialUpdatesAdded).FullName, Activator.CreateInstance(typeof(IntegrationEventHandler)) as IIntegrationEventHandler<IEvent>);
 }

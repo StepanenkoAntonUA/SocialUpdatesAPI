@@ -6,7 +6,5 @@ namespace Eventer.Events
     {
         public string EventId { get; set; }
         public DateTime EventTime { get; set; }
-
-
     }
 }

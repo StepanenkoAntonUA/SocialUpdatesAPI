@@ -9,6 +9,4 @@ namespace Eventer.Events
     public class IntegrationEventHandler : IIntegrationEventHandler<IEvent>
     {
     }
-
-    
 }

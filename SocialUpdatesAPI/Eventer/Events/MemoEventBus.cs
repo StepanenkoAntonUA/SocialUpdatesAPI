@@ -7,11 +7,9 @@ namespace Eventer.Events
     {
         private ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> _eventDictionary =
             new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
-        private IIntegrationEventHandler<IEvent> _eventHandler;
-
+       
         public MemoEventBus()
         {
-            _eventHandler = Activator.CreateInstance(typeof(IntegrationEventHandler)) as IIntegrationEventHandler<IEvent>;
         }
 
         public void Publish(IEvent @event)
@@ -28,6 +26,8 @@ namespace Eventer.Events
 
         public void Subscribe(string eventTypeName) 
         {
+            var _eventHandler = Activator.CreateInstance(typeof(IntegrationEventHandler)) as IIntegrationEventHandler<IEvent>;
+            
             if (!_eventDictionary.ContainsKey(eventTypeName))
             {
                 _eventDictionary.TryAdd(eventTypeName, new List<IIntegrationEventHandler<IEvent>> { _eventHandler });

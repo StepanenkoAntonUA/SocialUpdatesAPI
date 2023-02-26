@@ -2,7 +2,7 @@
 {
     public interface IEventBus
     {
-        void Publish(IEvent @event);
+        Task PublishAsync(IEvent @event);
 
         void Subscribe(string eventTypeName);
 

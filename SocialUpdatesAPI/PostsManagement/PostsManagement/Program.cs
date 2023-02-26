@@ -2,7 +2,6 @@ using DataAccess;
 using Domain;
 using Domain.Services;
 using Eventer.Events;
-using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +10,6 @@ ConfigureServices(builder.Services);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IPostsStore, PostsStore>();
 builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
-
-
 
 
 builder.Services.AddCors(p =>

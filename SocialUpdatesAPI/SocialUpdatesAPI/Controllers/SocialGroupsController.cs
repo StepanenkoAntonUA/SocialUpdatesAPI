@@ -1,5 +1,4 @@
-﻿using Domain;
-using Domain.Services;
+﻿using Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using SocialUpdatesAPI.Adapters;
 using SocialUpdatesAPI.DTO;

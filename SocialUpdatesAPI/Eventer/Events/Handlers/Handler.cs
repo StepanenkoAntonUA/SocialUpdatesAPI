@@ -12,6 +12,7 @@ namespace Eventer.Events.Handlers
         public static async Task HandleAsync(IEvent value)
         {
             {
+                // переделать в наслеование с базовым классом
                 var currentDir = Path.Combine(Directory.GetCurrentDirectory());
                 var fileName = $"{currentDir}\\{value.EventTypeName}.txt";
                 var message = value.ToJson();

@@ -20,6 +20,13 @@ namespace Eventer.Events
                 foreach (var handler in _eventDictionary[eventTypeName])
                 {
                     handler.HandleAsync(@event);
+                    /*
+                     * из-за того, что async метод вызывается как НЕ async - приложение работать не будет. Надо вызывать через await
+                     * Есть 2 решения:
+                     * 1. Publish должен быть тоже PublistAsync (учитывая все правила работы  async-await)
+                     * 2. HandleAsync должен быть не async. Но этот вариант сильно хуже.
+                     */
+
                 }
             }
         }

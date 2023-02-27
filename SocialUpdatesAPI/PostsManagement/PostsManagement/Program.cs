@@ -2,6 +2,7 @@ using DataAccess;
 using Domain;
 using Domain.Services;
 using Eventer.Events;
+using Eventer.Events.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,5 +45,9 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialGroupService, SocialGroupService>();
 
     var eventBus = new MemoEventBus();
-    eventBus.Subscribe(typeof(SocialUpdatesAdded).FullName);
+    eventBus.Subscribe(typeof(SocialPostCommentedEvent).FullName);
+    eventBus.Subscribe(typeof(SocialPostCreatedEvent).FullName);
+    eventBus.Subscribe(typeof(SocialPostSentEvent).FullName);
+
+
 }

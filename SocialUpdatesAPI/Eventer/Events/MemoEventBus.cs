@@ -26,7 +26,7 @@ namespace Eventer.Events
 
         public void Subscribe(string eventTypeName)
         {
-            var type = Type.GetType(eventTypeName);
+            var type = Type.GetType(eventTypeName); 
             var _eventHandler = Activator.CreateInstance(type) as IIntegrationEventHandler<IEvent>;
 
             if (!_eventDictionary.ContainsKey(eventTypeName))

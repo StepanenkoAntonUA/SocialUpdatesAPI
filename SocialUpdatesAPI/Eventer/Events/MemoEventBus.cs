@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using Eventer.Events.Handlers;
+using System.Collections.Concurrent;
 
 namespace Eventer.Events
 {
@@ -25,7 +26,7 @@ namespace Eventer.Events
 
         public void Subscribe(string eventTypeName)
         {
-            var _eventHandler = Activator.CreateInstance(typeof(IntegrationEventHandler)) as IIntegrationEventHandler<IEvent>;
+            var _eventHandler = Activator.CreateInstance(typeof(Handler)) as IIntegrationEventHandler<IEvent>;
 
             if (!_eventDictionary.ContainsKey(eventTypeName))
             {
@@ -46,5 +47,7 @@ namespace Eventer.Events
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

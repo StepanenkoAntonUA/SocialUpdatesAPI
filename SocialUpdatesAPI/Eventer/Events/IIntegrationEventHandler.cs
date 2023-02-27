@@ -2,6 +2,6 @@
 {
     public interface IIntegrationEventHandler<T>
     {
-        Task HandleAsync(T value);
+       public Task HandleAsync(T value);
     }
 }

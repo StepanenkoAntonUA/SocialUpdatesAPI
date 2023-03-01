@@ -2,10 +2,9 @@ using DataAccess;
 using Domain;
 using Domain.Services;
 using Eventer.Events;
-using Eventer.Events.Events;
+using Eventer.Events.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 ConfigureServices(builder.Services);
 builder.Services.AddControllers();
@@ -43,11 +42,12 @@ void ConfigureServices(IServiceCollection services)
 {
     services.AddTransient<IPostsManagementService, PostsManagementService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
+    services.AddSingleton<IEventBus, MemoEventBus>();
+    //services.AddTransient<IIntegrationEventHandler<IEvent>, Handler>();
 
-    var eventBus = new MemoEventBus();
-    eventBus.Subscribe(typeof(SocialPostCommentedEvent).FullName);
-    eventBus.Subscribe(typeof(SocialPostCreatedEvent).FullName);
-    eventBus.Subscribe(typeof(SocialPostSentEvent).FullName);
-
-
+    /* var eventBus = new MemoEventBus();
+     eventBus.Subscribe(typeof(SocialPostCommentedEvent).FullName);
+     eventBus.Subscribe(typeof(SocialPostCreatedEvent).FullName);
+     eventBus.Subscribe(typeof(SocialPostSentEvent).FullName);
+    */
 }

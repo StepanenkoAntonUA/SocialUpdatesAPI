@@ -1,0 +1,9 @@
+{"EventId":"43562b8e-d611-4ccf-8840-ae8a238454a7","EventTypeName":"Eventer.Events.Events.SocialPostCreatedEvent"}
+{"EventId":"12bf17a3-7b6f-4151-bd3c-d5f65261764c","EventTypeName":"Eventer.Events.Events.SocialPostCreatedEvent"}
+{"EventId":"112e081f-63e8-48bd-ba38-8dac5cadc26c","EventTime":"2023-03-01T09:01:15.8209348Z","Payload":"{\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Post\":\"Post1\",\"PublishTime\":\"0001-01-01T00:00:00\",\"RetryCount\":0}"}
+{"EventId":"2f8a240c-03c3-443e-83cd-acb51cf0ef9f","EventTime":"2023-03-01T09:08:15.9880602Z","Payload":"{\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Post\":\"Post1\",\"PublishTime\":\"0001-01-01T00:00:00\",\"RetryCount\":0}"}
+{"EventId":"d03a3d00-0fdc-4e6e-8e47-167c6ac66781","EventTime":"2023-03-01T09:13:42.43234Z","Payload":"{\"Id\":\"9582773b-e17d-42cf-b1b5-38f4643ec3a7\",\"Post\":\"Post1\",\"PublishTime\":\"2023-03-01T09:13:42.4322124Z\",\"RetryCount\":0}"}
+{"EventId":"1caf372d-8d4a-47bb-ba7e-63ad25610d47","EventTime":"2023-03-01T09:18:09.6384267Z","Payload":"{\"Id\":\"3380392d-8c1f-4186-936c-70a6567b2dea\",\"Post\":\"Post1\",\"PublishTime\":\"2023-03-01T09:18:09.6382773Z\",\"RetryCount\":0}"}
+{"EventId":"d0e8c8b9-d127-4757-bed5-c0cc53fe0398","EventTime":"2023-03-01T09:22:43.6521196Z","Payload":"{\"Id\":\"65e53ca9-d43a-41aa-a10c-481b87eb0b3b\",\"Post\":\"Post1\",\"PublishTime\":\"2023-03-01T09:22:43.6519514Z\",\"RetryCount\":1}"}
+{"EventId":"c2093215-3bc6-4373-b397-9dffae2114bf","EventTime":"2023-03-01T09:44:03.4815039Z","Payload":"{\"Id\":\"3ad3c689-7ab9-4e69-bf07-063c36653b3f\",\"Post\":\"Post1\",\"PublishTime\":\"2023-03-01T09:44:03.4813488Z\",\"RetryCount\":1}"}
+{"EventId":"11e61ac8-91c4-48fa-af28-8a2c445a3eeb","EventTime":"2023-03-01T09:44:53.5883169Z","Payload":"{\"Id\":\"6de881aa-ad50-4f6a-8631-1d5e5d9234d0\",\"Post\":\"Post1\",\"PublishTime\":\"2023-03-01T09:44:53.588315Z\",\"RetryCount\":1}"}

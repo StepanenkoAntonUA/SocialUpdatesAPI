@@ -12,7 +12,6 @@ namespace DataAccess
         }
         public async Task<PlannedPost> SaveAsync(PlannedPost data)
         {
-            data.Id = Guid.NewGuid();
             _plannedDictionary.TryAdd(data.Id, data);
             return _plannedDictionary[data.Id];
         }

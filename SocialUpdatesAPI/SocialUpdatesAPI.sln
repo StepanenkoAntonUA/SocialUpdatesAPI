@@ -19,9 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostsManagementApp", "Posts
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SocialUpdatesApp", "SocialUpdatesApp", "{9A3C68D0-78E6-4701-B5D9-A3D2307DF351}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{486F47BD-F6FC-4310-B933-4140DC1A399B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{486F47BD-F6FC-4310-B933-4140DC1A399B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{0D6CEC42-6ABA-4F1A-A8E2-A2279849813B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{0D6CEC42-6ABA-4F1A-A8E2-A2279849813B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

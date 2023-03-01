@@ -28,6 +28,7 @@ namespace PostsManagement.Controllers
         [HttpPost]
         public async Task<PlannedPostDTO> CreatePlannedPost(PlannedPost plannedPostItem)
         {
+            plannedPostItem.Id = Guid.NewGuid();
             var savedItem = await _postsManagmentService.SaveAsync(plannedPostItem);
             return PlannedPostAdapter.ToDTO(savedItem);
         }

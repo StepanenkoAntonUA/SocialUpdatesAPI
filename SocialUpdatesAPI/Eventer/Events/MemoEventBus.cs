@@ -1,15 +1,20 @@
-﻿using Eventer.Events.Handlers;
+﻿using Eventer.Events.Events;
+using Eventer.Events.Handlers;
 using System.Collections.Concurrent;
 
 namespace Eventer.Events
 {
     public class MemoEventBus : IEventBus
     {
-        private ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> _eventDictionary =
-            new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
+        private ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> _eventDictionary;
+            
 
         public MemoEventBus()
         {
+            _eventDictionary = new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
+            Subscribe(typeof(SocialPostCommentedEvent).FullName);
+            Subscribe(typeof(SocialPostCreatedEvent).FullName);
+            Subscribe(typeof(SocialPostSentEvent).FullName);
         }
 
         public async Task PublishAsync(IEvent @event)
@@ -26,13 +31,12 @@ namespace Eventer.Events
 
         public void Subscribe(string eventTypeName)
         {
-            var type = Type.GetType(eventTypeName); 
-            var _eventHandler = Activator.CreateInstance(type) as IIntegrationEventHandler<IEvent>;
-
+            //var type = Type.GetType(eventTypeName);
+            //var _eventHandler = Activator.CreateInstance(type) as IIntegrationEventHandler<IEvent>;
+            var _eventHandler = new Handler();
             if (!_eventDictionary.ContainsKey(eventTypeName))
             {
                 _eventDictionary.TryAdd(eventTypeName, new List<IIntegrationEventHandler<IEvent>> { _eventHandler });
-                return;
             }
 
             var allHandlers = _eventDictionary[eventTypeName];

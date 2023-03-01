@@ -1,4 +1,4 @@
-﻿using NuGet.Protocol;
+﻿using Newtonsoft.Json;
 
 namespace Eventer.Events.Handlers
 {
@@ -9,7 +9,8 @@ namespace Eventer.Events.Handlers
             {
                 var currentDir = Path.Combine(Directory.GetCurrentDirectory());
                 var fileName = $"{currentDir}\\{value.EventTypeName}.txt";
-                var message = value.ToJson();
+                var message = JsonConvert.SerializeObject(value);
+
 
                 using (var sw = new StreamWriter(fileName, true))
                 {
@@ -17,5 +18,7 @@ namespace Eventer.Events.Handlers
                 }
             }
         }
+
+
     }
 }

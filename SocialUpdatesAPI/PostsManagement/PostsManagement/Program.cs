@@ -12,6 +12,7 @@ builder.Services.AddSingleton<IPostsStore, PostsStore>();
 builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
 
 
+
 builder.Services.AddCors(p =>
 {
     p.AddPolicy("AllowAll", builder =>
@@ -40,14 +41,15 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
-    services.AddSingleton<IEventBus, MemoEventBus>();
+    
     services.AddTransient<IPostsManagementService, PostsManagementService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
-
+    
     var eventBus = new MemoEventBus();
-
     eventBus.Subscribe(typeof(SocialPostCommentedEvent).FullName);
     eventBus.Subscribe(typeof(SocialPostCreatedEvent).FullName);
     eventBus.Subscribe(typeof(SocialPostSentEvent).FullName);
-    return;
+
+    services.AddScoped<IEventBus, MemoEventBus>();
+
 }

@@ -6,11 +6,12 @@ namespace Eventer.Events
 {
     public class MemoEventBus : IEventBus
     {
-        private ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> _eventDictionary;//= new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
+        private ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> _eventDictionary = new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
+        private int test;
 
         public MemoEventBus()
         {
-            _eventDictionary = new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
+            test++;
         }
 
         public async Task PublishAsync(IEvent @event)

@@ -10,7 +10,6 @@ namespace Eventer.Events
 
         public MemoEventBus()
         {
-
         }
 
         public async Task PublishAsync(IEvent @event)
@@ -46,7 +45,5 @@ namespace Eventer.Events
         {
             throw new NotImplementedException();
         }
-
-
     }
 }

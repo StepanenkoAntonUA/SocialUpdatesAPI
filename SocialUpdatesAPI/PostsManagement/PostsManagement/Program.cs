@@ -3,6 +3,7 @@ using Domain;
 using Domain.Services;
 using Eventer.Events;
 using Eventer.Events.Events;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,14 +42,14 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
-    
     services.AddTransient<IPostsManagementService, PostsManagementService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
-    services.AddSingleton<IEventBus, MemoEventBus>();
 
     var eventBus = new MemoEventBus();
     eventBus.Subscribe(typeof(SocialPostCommentedEvent).FullName);
     eventBus.Subscribe(typeof(SocialPostCreatedEvent).FullName);
     eventBus.Subscribe(typeof(SocialPostSentEvent).FullName);
+
+    services.AddSingleton<IEventBus>(eventBus);
 
 }

@@ -19,15 +19,17 @@ namespace Domain
         }
         public async Task<PlannedPost> SaveAsync(PlannedPost data)
         {
-            data.PublishTime = DateTime.UtcNow;
-            data.RetryCount++;
             var @event = new SocialPostCreatedEvent { EventId = Guid.NewGuid().ToString()
                 , EventTime = DateTime.UtcNow
                 , Payload = JsonConvert.SerializeObject(data)
             };
 
-            _eventBus.PublishAsync(@event);
-            return await _postsStore.SaveAsync(data);
+            var plannedPost = await _postsStore.SaveAsync(data);
+            if (plannedPost != null)
+            {
+                await _eventBus.PublishAsync(@event);
+            }
+            return plannedPost;
         }
     }
 }

@@ -18,7 +18,5 @@ namespace Eventer.Events.Handlers
                 }
             }
         }
-
-
     }
 }

@@ -17,18 +17,25 @@ namespace Domain
             _postsStore = postsStore;
             _eventBus = eventBus;
         }
-        public async Task<PlannedPost> SaveAsync(PlannedPost data)
+
+        public async Task<PlannedPost?> SaveAsync(PlannedPost data)
         {
-            var @event = new SocialPostCreatedEvent { EventId = Guid.NewGuid().ToString()
+            data.Id = Guid.NewGuid();
+
+            var newEvent = new SocialPostCreatedEvent { 
+                EventId = Guid.NewGuid().ToString()
                 , EventTime = DateTime.UtcNow
+                // JsonConvert - это NewtonsoftJson. Это одна из самых медленных библиотек на net Core. Переделать сериализацию на System.Text JsonSerializer
+                // и добавить интерфейс ISerializer, чтобы вся сериализация, по всему проекту (и в текстовые файлы тоже) была внедрена (IoC) через этот ISerializer (ISerializer.Serialize(...))
                 , Payload = JsonConvert.SerializeObject(data)
             };
 
             var plannedPost = await _postsStore.SaveAsync(data);
             if (plannedPost != null)
             {
-                await _eventBus.PublishAsync(@event);
+                await _eventBus.PublishAsync(newEvent);
             }
+
             return plannedPost;
         }
     }

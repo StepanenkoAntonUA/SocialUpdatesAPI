@@ -1,15 +1,14 @@
 ﻿using Eventer.Common;
-using System.Text.Unicode;
 
 namespace Eventer.Events.Handlers
 {
     public class Handler : IIntegrationEventHandler<IEvent>
     {
-        private readonly ISerializer _serializer;
+        private ISerializer _serializer;
 
-        public Handler()
+        public Handler(IServiceProvider _services)
         {
-            _serializer = new Serializer();
+            _serializer = (ISerializer)_services.GetService(typeof(ISerializer));
         }
 
         public async Task HandleAsync(IEvent value)

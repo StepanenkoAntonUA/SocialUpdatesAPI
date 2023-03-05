@@ -7,6 +7,12 @@ namespace Eventer.Events
     public class MemoEventBus : IEventBus
     {
         private ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> _eventDictionary = new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
+        private readonly IServiceProvider _serviceProvider;
+
+        public MemoEventBus(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
 
         public async Task PublishAsync(IEvent @event)
         {
@@ -25,13 +31,13 @@ namespace Eventer.Events
             IIntegrationEventHandler<IEvent> eventHandler = null;
 
             if (typeof(SocialPostCommentedEvent).FullName.Equals(eventTypeName))
-                eventHandler = new SocialPostCommentedHandler();
+                eventHandler = new SocialPostCommentedHandler(_serviceProvider);
 
             if (typeof(SocialPostCreatedEvent).FullName.Equals(eventTypeName))
-                eventHandler = new SocialPostCreatedHandler();
+                eventHandler = new SocialPostCreatedHandler(_serviceProvider);
 
             if (typeof(SocialPostSentEvent).FullName.Equals(eventTypeName))
-                eventHandler = new SocialPostSentHandler();
+                eventHandler = new SocialPostSentHandler(_serviceProvider);
 
             if (!_eventDictionary.ContainsKey(eventTypeName) && eventHandler != null)
             {

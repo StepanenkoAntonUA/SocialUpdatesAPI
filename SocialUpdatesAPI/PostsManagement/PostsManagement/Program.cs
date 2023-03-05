@@ -4,7 +4,6 @@ using Domain.Services;
 using Eventer.Common;
 using Eventer.Events;
 using Eventer.Events.Events;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,8 +46,10 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<ISerializer, Serializer>();
 
+    var serviceProvider = services.BuildServiceProvider();
 
-    var eventBus = new MemoEventBus();
+    var eventBus = new MemoEventBus(serviceProvider);
+
     eventBus.Subscribe(typeof(SocialPostCommentedEvent).FullName);
     eventBus.Subscribe(typeof(SocialPostCreatedEvent).FullName);
     eventBus.Subscribe(typeof(SocialPostSentEvent).FullName);

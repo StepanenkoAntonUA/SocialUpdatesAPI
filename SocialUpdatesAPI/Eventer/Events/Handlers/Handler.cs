@@ -9,7 +9,7 @@ namespace Eventer.Events.Handlers
 
         public Handler(IServiceProvider _services)
         {
-            _serializer = _services.GetService<ISerializer>(); //(ISerializer)_services.GetService(typeof(ISerializer));
+            _serializer = _services.GetService<ISerializer>();
         }
 
         public async Task HandleAsync(IEvent value)

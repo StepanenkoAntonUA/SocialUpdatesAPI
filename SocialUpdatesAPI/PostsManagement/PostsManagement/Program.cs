@@ -1,6 +1,7 @@
 using DataAccess;
 using Domain;
 using Domain.Services;
+using Eventer.Common;
 using Eventer.Events;
 using Eventer.Events.Events;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,8 @@ void ConfigureServices(IServiceCollection services)
 {
     services.AddTransient<IPostsManagementService, PostsManagementService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
+    services.AddTransient<ISerializer, Serializer>();
+
 
     var eventBus = new MemoEventBus();
     eventBus.Subscribe(typeof(SocialPostCommentedEvent).FullName);

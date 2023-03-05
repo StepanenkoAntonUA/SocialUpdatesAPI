@@ -1,8 +1,8 @@
 ﻿using DataAccess;
+using Eventer.Common;
 using Eventer.Events;
 using Eventer.Events.Events;
 using Models;
-using Newtonsoft.Json;
 
 
 namespace Domain
@@ -11,23 +11,28 @@ namespace Domain
     {
         private IPostsStore _postsStore;
         private IEventBus _eventBus;
+        private ISerializer _serializer;
 
-        public PostsManagementService(IPostsStore postsStore, IEventBus eventBus)
+        public PostsManagementService(IPostsStore postsStore
+                , IEventBus eventBus
+                , ISerializer serializer)
         {
             _postsStore = postsStore;
             _eventBus = eventBus;
+            _serializer = serializer;
         }
 
         public async Task<PlannedPost?> SaveAsync(PlannedPost data)
         {
             data.Id = Guid.NewGuid();
 
-            var newEvent = new SocialPostCreatedEvent { 
+            var newEvent = new SocialPostCreatedEvent
+            {
                 EventId = Guid.NewGuid().ToString()
-                , EventTime = DateTime.UtcNow
-                // JsonConvert - это NewtonsoftJson. Это одна из самых медленных библиотек на net Core. Переделать сериализацию на System.Text JsonSerializer
-                // и добавить интерфейс ISerializer, чтобы вся сериализация, по всему проекту (и в текстовые файлы тоже) была внедрена (IoC) через этот ISerializer (ISerializer.Serialize(...))
-                , Payload = JsonConvert.SerializeObject(data)
+                ,
+                EventTime = DateTime.UtcNow
+                ,
+                Payload = _serializer.Serialize(data)
             };
 
             var plannedPost = await _postsStore.SaveAsync(data);

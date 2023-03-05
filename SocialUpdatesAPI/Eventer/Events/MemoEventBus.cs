@@ -8,10 +8,6 @@ namespace Eventer.Events
     {
         private ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> _eventDictionary = new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
 
-        public MemoEventBus()
-        {
-        }
-
         public async Task PublishAsync(IEvent @event)
         {
             var eventTypeName = @event.EventTypeName;
@@ -26,18 +22,26 @@ namespace Eventer.Events
 
         public void Subscribe(string eventTypeName)
         {
-            // на каждый тип события будет создан только один тип хендлера. Должен создаваться конкретный хендлер на конкретное событие
-            // сейчас работает все "как надо" только потому, что все кокретные хендлеры берут у Handler реализацию. Если бы все конкретные хендлеры имели свою реализацию - работаело бы все по правилам Handler, что кардинально противоречит требованиям
-            var _eventHandler = new Handler();
-            if (!_eventDictionary.ContainsKey(eventTypeName))
+            IIntegrationEventHandler<IEvent> eventHandler = null;
+
+            if (typeof(SocialPostCommentedEvent).FullName.Equals(eventTypeName))
+                eventHandler = new SocialPostCommentedHandler();
+
+            if (typeof(SocialPostCreatedEvent).FullName.Equals(eventTypeName))
+                eventHandler = new SocialPostCreatedHandler();
+
+            if (typeof(SocialPostSentEvent).FullName.Equals(eventTypeName))
+                eventHandler = new SocialPostSentHandler();
+
+            if (!_eventDictionary.ContainsKey(eventTypeName) && eventHandler != null)
             {
-                _eventDictionary.TryAdd(eventTypeName, new List<IIntegrationEventHandler<IEvent>> { _eventHandler });
+                _eventDictionary.TryAdd(eventTypeName, new List<IIntegrationEventHandler<IEvent>> { eventHandler });
             }
 
             var allHandlers = _eventDictionary[eventTypeName];
-            if (!allHandlers.Contains(_eventHandler))
+            if (!allHandlers.Contains(eventHandler) && eventHandler != null)
             {
-                _eventDictionary[eventTypeName].Add(_eventHandler);
+                _eventDictionary[eventTypeName].Add(eventHandler);
             };
         }
 

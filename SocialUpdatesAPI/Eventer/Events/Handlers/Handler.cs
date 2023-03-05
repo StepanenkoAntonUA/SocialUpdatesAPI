@@ -1,4 +1,5 @@
 ﻿using Eventer.Common;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Eventer.Events.Handlers
 {
@@ -8,7 +9,7 @@ namespace Eventer.Events.Handlers
 
         public Handler(IServiceProvider _services)
         {
-            _serializer = (ISerializer)_services.GetService(typeof(ISerializer));
+            _serializer = _services.GetService<ISerializer>(); //(ISerializer)_services.GetService(typeof(ISerializer));
         }
 
         public async Task HandleAsync(IEvent value)

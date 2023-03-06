@@ -4,6 +4,7 @@ using Domain.Services;
 using Eventer.Common;
 using Eventer.Events;
 using Eventer.Events.Events;
+using Eventer.Events.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,13 +47,11 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<ISerializer, Serializer>();
 
-    var serviceProvider = services.BuildServiceProvider();
-
-    var eventBus = new MemoEventBus(serviceProvider);
-
-    eventBus.Subscribe(typeof(SocialPostCommentedEvent).FullName);
-    eventBus.Subscribe(typeof(SocialPostCreatedEvent).FullName);
-    eventBus.Subscribe(typeof(SocialPostSentEvent).FullName);
+    var eventBus = new MemoEventBus();
+    
+    eventBus.Subscribe(typeof(SocialPostCommentedEvent), typeof(SocialPostCommentedHandler));
+    eventBus.Subscribe(typeof(SocialPostCreatedEvent), typeof(SocialPostCreatedHandler));
+    eventBus.Subscribe(typeof(SocialPostSentEvent), typeof(SocialPostSentHandler));
 
     services.AddSingleton<IEventBus>(eventBus);
 

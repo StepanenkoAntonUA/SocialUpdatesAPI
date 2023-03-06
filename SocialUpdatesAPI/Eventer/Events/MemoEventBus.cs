@@ -1,17 +1,17 @@
 ﻿using Eventer.Events.Events;
 using Eventer.Events.Handlers;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Eventer.Events
 {
     public class MemoEventBus : IEventBus
     {
         private ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>> _eventDictionary = new ConcurrentDictionary<string, List<IIntegrationEventHandler<IEvent>>>();
-        private readonly IServiceProvider _serviceProvider;
 
-        public MemoEventBus(IServiceProvider serviceProvider)
+        public MemoEventBus()
         {
-            _serviceProvider = serviceProvider;
         }
 
         public async Task PublishAsync(IEvent @event)
@@ -26,18 +26,14 @@ namespace Eventer.Events
             }
         }
 
-        public void Subscribe(string eventTypeName)
+        public void Subscribe(Type eventType, Type handlerType)
         {
-            IIntegrationEventHandler<IEvent> eventHandler = null;
+            if (typeof(IIntegrationEventHandler<IEvent>).IsAssignableFrom(handlerType))
+                throw new ArgumentException($"Received handler not implements {nameof(IIntegrationEventHandler<IEvent>)}");
 
-            if (typeof(SocialPostCommentedEvent).FullName.Equals(eventTypeName))
-                eventHandler = new SocialPostCommentedHandler(_serviceProvider);
+            var eventHandler = (IIntegrationEventHandler<IEvent>)Activator.CreateInstance(handlerType.AssemblyQualifiedName, handlerType.FullName);
 
-            if (typeof(SocialPostCreatedEvent).FullName.Equals(eventTypeName))
-                eventHandler = new SocialPostCreatedHandler(_serviceProvider);
-
-            if (typeof(SocialPostSentEvent).FullName.Equals(eventTypeName))
-                eventHandler = new SocialPostSentHandler(_serviceProvider);
+            var eventTypeName = eventType.FullName;
 
             if (!_eventDictionary.ContainsKey(eventTypeName) && eventHandler != null)
             {

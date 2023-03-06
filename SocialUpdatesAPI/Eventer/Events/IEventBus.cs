@@ -4,7 +4,7 @@
     {
         Task PublishAsync(IEvent @event);
 
-        void Subscribe(string eventTypeName);
+        void Subscribe(Type eventType, Type handlerType);
 
         void Unsubscribe<T, TH>()
             where TH : IIntegrationEventHandler<T>

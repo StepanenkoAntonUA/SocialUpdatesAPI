@@ -1,4 +1,6 @@
-﻿namespace Eventer.Events
+﻿using System.Reflection;
+
+namespace Eventer.Events
 {
     public interface IEventBus
     {
@@ -9,5 +11,7 @@
         void Unsubscribe<T, TH>()
             where TH : IIntegrationEventHandler<T>
             where T : IEvent;
+
+        void Initialize(Assembly eventsAssembly);
     }
 }

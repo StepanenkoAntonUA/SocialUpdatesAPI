@@ -47,12 +47,15 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<ISerializer, Serializer>();
 
-    var eventBus = new MemoEventBus();
-    
-    eventBus.Subscribe(typeof(SocialPostCommentedEvent), typeof(SocialPostCommentedHandler));
-    eventBus.Subscribe(typeof(SocialPostCreatedEvent), typeof(SocialPostCreatedHandler));
-    eventBus.Subscribe(typeof(SocialPostSentEvent), typeof(SocialPostSentHandler));
+    services.AddTransient<IIntegrationEventHandler<SocialPostCommentedEvent>, SocialPostCommentedHandler>();
+    services.AddTransient<IIntegrationEventHandler<SocialPostCreatedEvent>, SocialPostCreatedHandler>();
+    services.AddTransient<IIntegrationEventHandler<SocialPostSentEvent>, SocialPostSentHandler>();
 
-    services.AddSingleton<IEventBus>(eventBus);
-
+    services.AddSingleton<IEventBus>(provider =>
+    {
+        var instance = new MemoEventBus(provider);
+        instance.Initialize(typeof(SocialPostCommentedEvent).Assembly);
+        
+        return instance;
+    });
 }

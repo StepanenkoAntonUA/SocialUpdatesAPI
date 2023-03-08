@@ -58,7 +58,6 @@ namespace Eventer.Events
 
         public void Initialize(List<Assembly> eventsAssemblyList)
         {
-            var handlerList = new List<IIntegrationEventHandler<IEvent>>();
             foreach (var eventsAssembly in eventsAssemblyList)
             {
                 foreach (var @eventType in eventsAssembly

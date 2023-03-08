@@ -56,32 +56,35 @@ namespace Eventer.Events
             throw new NotImplementedException();
         }
 
-        public void Initialize(Assembly eventsAssembly)
+        public void Initialize(List<Assembly> eventsAssemblyList)
         {
-            foreach(var @eventType in eventsAssembly
-                    .GetExportedTypes()
-                    .Where(t => !t.IsInterface && t.IsAssignableTo(typeof(IEvent)))
-                )
+            foreach (var eventsAssembly in eventsAssemblyList)
             {
-                var handlerType = typeof(IIntegrationEventHandler<>).MakeGenericType(@eventType);
-                var handler = _serviceProvider.GetService(handlerType);
-
-                var eventTypeName = @eventType.FullName;
-                var typedHandler = (IIntegrationEventHandler<IEvent>)handler;
-
-                if (!_eventDictionary.ContainsKey(eventTypeName) && @eventType != null)
+                foreach (var @eventType in eventsAssembly
+                        .GetExportedTypes()
+                        .Where(t => !t.IsInterface && t.IsAssignableTo(typeof(IEvent)))
+                    )
                 {
-                    _eventDictionary.TryAdd(
-                            eventTypeName, 
-                            new List<IIntegrationEventHandler<IEvent>> { typedHandler }
-                        );
+                    var handlerType = typeof(IIntegrationEventHandler<>).MakeGenericType(@eventType);
+                    var handler = _serviceProvider.GetService(handlerType);
+
+                    var eventTypeName = @eventType.FullName;
+                    var typedHandler = (IIntegrationEventHandler<IEvent>)handler;
+
+                    if (!_eventDictionary.ContainsKey(eventTypeName) && @eventType != null)
+                    {
+                        _eventDictionary.TryAdd(
+                                eventTypeName,
+                                new List<IIntegrationEventHandler<IEvent>> { typedHandler }
+                            );
+                    }
+
+                    var allHandlers = _eventDictionary[eventTypeName];
+                    if (!allHandlers.Contains(handler) && handler != null)
+                    {
+                        _eventDictionary[eventTypeName].Add(typedHandler);
+                    };
                 }
-
-                var allHandlers = _eventDictionary[eventTypeName];
-                if (!allHandlers.Contains(handler) && handler != null)
-                {
-                    _eventDictionary[eventTypeName].Add(typedHandler);
-                };
             }
         }
     }

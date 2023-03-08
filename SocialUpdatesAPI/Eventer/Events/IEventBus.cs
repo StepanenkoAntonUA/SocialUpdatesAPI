@@ -12,6 +12,6 @@ namespace Eventer.Events
             where TH : IIntegrationEventHandler<T>
             where T : IEvent;
 
-        void Initialize(Assembly eventsAssembly);
+        void Initialize(List<Assembly> eventsAssemblyList);
     }
 }

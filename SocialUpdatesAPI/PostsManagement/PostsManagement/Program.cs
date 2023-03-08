@@ -5,6 +5,7 @@ using Eventer.Common;
 using Eventer.Events;
 using Eventer.Events.Events;
 using Eventer.Events.Handlers;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,11 +52,15 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<IIntegrationEventHandler<SocialPostCreatedEvent>, SocialPostCreatedHandler>();
     services.AddTransient<IIntegrationEventHandler<SocialPostSentEvent>, SocialPostSentHandler>();
 
+
+    List<Assembly> assemblyList = new List<Assembly>();
+    assemblyList.Add(typeof(SocialPostCommentedEvent).Assembly);
+    
     services.AddSingleton<IEventBus>(provider =>
     {
         var instance = new MemoEventBus(provider);
-        instance.Initialize(typeof(SocialPostCommentedEvent).Assembly);
-        
+        instance.Initialize(assemblyList);
+
         return instance;
     });
 }

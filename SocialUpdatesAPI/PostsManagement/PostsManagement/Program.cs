@@ -54,9 +54,11 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<IIntegrationEventHandler<SocialPostSentEvent>, SocialPostSentHandler>();
 
 
-    List<Assembly> assemblyList = new List<Assembly>();
-    assemblyList.Add(typeof(SocialPostCommentedEvent).Assembly);
-    
+    var assemblyList = new List<Assembly>
+    {
+        typeof(SocialPostCommentedEvent).Assembly
+    };
+
     services.AddSingleton<IEventBus>(provider =>
     {
         var instance = new MemoEventBus(provider);

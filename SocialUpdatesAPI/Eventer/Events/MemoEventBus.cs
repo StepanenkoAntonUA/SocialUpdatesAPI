@@ -58,6 +58,7 @@ namespace Eventer.Events
 
         public void Initialize(List<Assembly> eventsAssemblyList)
         {
+            var handlerList = new List<IIntegrationEventHandler<IEvent>>();
             foreach (var eventsAssembly in eventsAssemblyList)
             {
                 foreach (var @eventType in eventsAssembly
@@ -71,7 +72,7 @@ namespace Eventer.Events
                     var eventTypeName = @eventType.FullName;
                     var typedHandler = (IIntegrationEventHandler<IEvent>)handler;
 
-                    if (!_eventDictionary.ContainsKey(eventTypeName) && @eventType != null)
+                    if (!_eventDictionary.ContainsKey(eventTypeName) && @eventType != null && typedHandler != null)
                     {
                         _eventDictionary.TryAdd(
                                 eventTypeName,
@@ -79,11 +80,14 @@ namespace Eventer.Events
                             );
                     }
 
-                    var allHandlers = _eventDictionary[eventTypeName];
-                    if (!allHandlers.Contains(handler) && handler != null)
+                    if (_eventDictionary.ContainsKey(eventTypeName))
                     {
-                        _eventDictionary[eventTypeName].Add(typedHandler);
-                    };
+                        var allHandlers = _eventDictionary[eventTypeName];
+                        if (!allHandlers.Contains(handler) && handler != null)
+                        {
+                            _eventDictionary[eventTypeName].Add(typedHandler);
+                        };
+                    }
                 }
             }
         }

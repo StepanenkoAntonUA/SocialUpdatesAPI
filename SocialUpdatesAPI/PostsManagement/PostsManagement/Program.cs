@@ -5,6 +5,7 @@ using Eventer.Common;
 using Eventer.Events;
 using Eventer.Events.Events;
 using Eventer.Events.Handlers;
+using Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

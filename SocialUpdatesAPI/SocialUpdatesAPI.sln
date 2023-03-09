@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialUpdatesAPI", "SocialU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventer", "Eventer\Eventer.csproj", "{176F8314-519D-47FF-B748-27D4F5DAF446}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostsManagement", "PostsManagement\PostsManagement\PostsManagement.csproj", "{C6856D25-FDBA-4D50-BE37-2A46F9F93A8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostsManagementAPI", "PostsManagement\PostsManagement\PostsManagementAPI.csproj", "{C6856D25-FDBA-4D50-BE37-2A46F9F93A8B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "SocialUpdate.Core\Domain.csproj", "{7443B0F0-1B67-45C8-BEDA-51FF3B630CEA}"
 EndProject

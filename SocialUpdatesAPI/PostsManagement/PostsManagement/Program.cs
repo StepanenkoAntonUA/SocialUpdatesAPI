@@ -6,6 +6,7 @@ using Eventer.Events;
 using Eventer.Events.Events;
 using Eventer.Events.Handlers;
 using Models;
+using PostsManagementAPI.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ ConfigureServices(builder.Services);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IPostsStore, PostsStore>();
 builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
+
 
 
 
@@ -45,9 +47,12 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
+    
     services.AddTransient<IPostsManagementService, PostsManagementService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<ISerializer, Serializer>();
+    
+    services.AddHostedService<PlannedPostsChecker>();
 
     services.AddTransient<IIntegrationEventHandler<SocialPostCommentedEvent>, SocialPostCommentedHandler>();
     services.AddTransient<IIntegrationEventHandler<SocialPostCreatedEvent>, SocialPostCreatedHandler>();
@@ -64,4 +69,7 @@ void ConfigureServices(IServiceCollection services)
 
         return instance;
     });
+
+    
+
 }

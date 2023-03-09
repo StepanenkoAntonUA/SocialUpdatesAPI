@@ -3,12 +3,16 @@
     public class PlannedPostsChecker : IHostedService, IDisposable
     {
         private Timer? _timer = null;
-        private const int secondsInterval = 5;
+        private const int SecondsInterval = 5;
 
         public Task StartAsync(CancellationToken stoppingToken)
         {
-            _timer = new Timer(Check, null, TimeSpan.Zero,
-               TimeSpan.FromSeconds(secondsInterval));
+            _timer = new Timer(
+                    Check,
+                    null, 
+                    TimeSpan.Zero,
+                    TimeSpan.FromSeconds(SecondsInterval)
+                );
 
             return Task.CompletedTask;
         }

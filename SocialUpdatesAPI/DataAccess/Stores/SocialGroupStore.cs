@@ -1,6 +1,6 @@
 ﻿using Models;
 
-namespace DataAccess
+namespace DataAccess.Stores
 {
     public class SocialGroupStore : ISocialGroupStore
     {

@@ -1,11 +1,11 @@
-using DataAccess;
+using DataAccess.DAOs;
+using DataAccess.Stores;
 using Domain;
 using Domain.Services;
 using Eventer.Common;
 using Eventer.Events;
 using Eventer.Events.Events;
 using Eventer.Events.Handlers;
-using Models;
 using PostsManagementAPI.Services;
 using System.Reflection;
 
@@ -15,6 +15,7 @@ ConfigureServices(builder.Services);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IPostsStore, PostsStore>();
 builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
+builder.Services.AddTransient<IPostsDao, PostsDao>();
 
 
 

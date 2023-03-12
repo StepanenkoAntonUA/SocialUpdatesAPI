@@ -3,15 +3,26 @@
     public class PlannedPostsChecker : IHostedService, IDisposable
     {
         private Timer? _timer = null;
-        private const int SecondsInterval = 5;
+        private int _secondsInterval;
+
+        public PlannedPostsChecker()
+        {
+            var builder = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            IConfiguration configuration = builder.Build();
+
+            _secondsInterval = int.Parse(configuration["UpdateInterval"]);
+        }
 
         public Task StartAsync(CancellationToken stoppingToken)
         {
             _timer = new Timer(
                     Check,
-                    null, 
+                    null,
                     TimeSpan.Zero,
-                    TimeSpan.FromSeconds(SecondsInterval)
+                    TimeSpan.FromSeconds(_secondsInterval)
                 );
 
             return Task.CompletedTask;

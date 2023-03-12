@@ -1,4 +1,4 @@
-﻿using DataAccess;
+﻿using DataAccess.Stores;
 using Models;
 
 namespace Domain

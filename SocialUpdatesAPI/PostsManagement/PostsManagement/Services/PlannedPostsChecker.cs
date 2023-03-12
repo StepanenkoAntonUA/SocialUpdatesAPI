@@ -7,6 +7,7 @@
 
         public PlannedPostsChecker()
         {
+            // тоже самое - конфигурацию брать только в program.cs. брать 1 раз и через IoC прокидывать по проекту
             var builder = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);

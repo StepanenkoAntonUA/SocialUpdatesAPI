@@ -13,6 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 ConfigureServices(builder.Services);
 builder.Services.AddControllers();
+
+// есть метод ConfigureServices ниже. ј почему тогда эти инициализации наход€тс€ десь?
+// еще лучше - сделать ConfigureStores и вынести это туда. ¬ызывать перед ConfigureServices, т.к. по уровн€м Stoe соит ниже Service и Service нужны готовые Store дл€ работы
 builder.Services.AddSingleton<IPostsStore, PostsStore>();
 builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
 builder.Services.AddTransient<IPostsDao, PostsDao>();

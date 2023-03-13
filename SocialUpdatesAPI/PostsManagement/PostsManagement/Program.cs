@@ -61,7 +61,8 @@ void ConfigureServices(IServiceCollection services)
 
         // давай переделаем конфигурацию под Configuration.GetSection(PositionOptions.Position).Get<PositionOptions>(); как в примере тут https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-7.0 
         // и передавать IOptions в IDao
-        // будет примерно Configuration.GetSection(PlannedPostsCheckerOptions.SectionName).Get<PlannedPostsCheckerOptions>()
+        // будет примерно Configuration.GetSection(PlannedPostsCheckerOptions.SectionName).Get<PlannedPostsCheckerOptions>() и не надо будет тут создавать инстанс PlannedPostsCheckerOptions. IOptions (options pattern) сам будет прокидывать IOptions<PlannedPostsCheckerOptions> когда встретит такое в конструкторе. Соответственно и в конструкторе PlannedPostsChecker тоже заменить на IOptions<...>
+        // https://metanit.com/sharp/aspnet5/6.3.php тоже как пример options pattern
     };
 
     services.AddHostedService<PlannedPostsChecker>(service => new PlannedPostsChecker(checkerDescriptor));

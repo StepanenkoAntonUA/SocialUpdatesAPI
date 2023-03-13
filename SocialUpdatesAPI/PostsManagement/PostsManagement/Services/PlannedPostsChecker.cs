@@ -1,20 +1,15 @@
-﻿namespace PostsManagementAPI.Services
+﻿using Common;
+
+namespace PostsManagementAPI.Services
 {
     public class PlannedPostsChecker : IHostedService, IDisposable
     {
         private Timer? _timer = null;
         private int _secondsInterval;
 
-        public PlannedPostsChecker()
+        public PlannedPostsChecker(PlannedPostsCheckerDescriptor descriptor)
         {
-            // тоже самое - конфигурацию брать только в program.cs. брать 1 раз и через IoC прокидывать по проекту
-            var builder = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-            IConfiguration configuration = builder.Build();
-
-            _secondsInterval = int.Parse(configuration["UpdateInterval"]);
+            _secondsInterval = descriptor.IntervalSec;
         }
 
         public Task StartAsync(CancellationToken stoppingToken)
@@ -51,5 +46,6 @@
         {
             _timer?.Dispose();
         }
+
     }
 }

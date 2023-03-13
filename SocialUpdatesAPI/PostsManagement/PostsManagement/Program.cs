@@ -1,3 +1,5 @@
+using Common;
+using Common.Configuration;
 using DataAccess.DAOs;
 using DataAccess.Stores;
 using Domain;
@@ -10,17 +12,13 @@ using PostsManagementAPI.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = new AppConfigurationBuilder();
+IConfiguration configuration = config.Build();
 
+
+ConfigureStores(builder.Services);
 ConfigureServices(builder.Services);
 builder.Services.AddControllers();
-
-// есть метод ConfigureServices ниже. ј почему тогда эти инициализации наход€тс€ десь?
-// еще лучше - сделать ConfigureStores и вынести это туда. ¬ызывать перед ConfigureServices, т.к. по уровн€м Stoe соит ниже Service и Service нужны готовые Store дл€ работы
-builder.Services.AddSingleton<IPostsStore, PostsStore>();
-builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
-builder.Services.AddTransient<IPostsDao, PostsDao>();
-
-
 
 
 builder.Services.AddCors(p =>
@@ -51,17 +49,20 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
-    
     services.AddTransient<IPostsManagementService, PostsManagementService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<ISerializer, Serializer>();
-    
-    services.AddHostedService<PlannedPostsChecker>();
+
+    var checkerDescriptor = new PlannedPostsCheckerDescriptor
+    {
+        IntervalSec = Int32.Parse(configuration["UpdateIntervalSec"])
+    };
+
+    services.AddHostedService<PlannedPostsChecker>(service => new PlannedPostsChecker(checkerDescriptor));
 
     services.AddTransient<IIntegrationEventHandler<SocialPostCommentedEvent>, SocialPostCommentedHandler>();
     services.AddTransient<IIntegrationEventHandler<SocialPostCreatedEvent>, SocialPostCreatedHandler>();
     services.AddTransient<IIntegrationEventHandler<SocialPostSentEvent>, SocialPostSentHandler>();
-
 
     var assemblyList = new List<Assembly>
     {
@@ -75,7 +76,17 @@ void ConfigureServices(IServiceCollection services)
 
         return instance;
     });
+}
 
-    
+void ConfigureStores(IServiceCollection services)
+{
 
+    var connectionStringDescriptor = new ConnectionStringDescriptor
+    {
+        ConnectionString = configuration.GetConnectionString("DefaultConnection")
+    };
+
+    services.AddSingleton<IPostsStore, PostsStore>();
+    services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
+    services.AddTransient<IPostsDao>(descriptor => new PostsDao(connectionStringDescriptor));
 }

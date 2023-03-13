@@ -53,9 +53,15 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<ISerializer, Serializer>();
 
+    // PlannedPostsCheckerDescriptor переименовать в PlannedPostsCheckerOptions. Это Options а не "описание"
     var checkerDescriptor = new PlannedPostsCheckerDescriptor
     {
-        IntervalSec = Int32.Parse(configuration["UpdateIntervalSec"])
+        IntervalSec = int.Parse(configuration["UpdateIntervalSec"])
+        // Int32 - не используем. Это для сохранения взаимозаменяемости C# с Visual Basic
+
+        // давай переделаем конфигурацию под Configuration.GetSection(PositionOptions.Position).Get<PositionOptions>(); как в примере тут https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-7.0 
+        // и передавать IOptions в IDao
+        // будет примерно Configuration.GetSection(PlannedPostsCheckerOptions.SectionName).Get<PlannedPostsCheckerOptions>()
     };
 
     services.AddHostedService<PlannedPostsChecker>(service => new PlannedPostsChecker(checkerDescriptor));

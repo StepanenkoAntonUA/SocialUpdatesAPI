@@ -53,19 +53,10 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<ISerializer, Serializer>();
 
-    // PlannedPostsCheckerDescriptor переименовать в PlannedPostsCheckerOptions. Это Options а не "описание"
-    var checkerDescriptor = new PlannedPostsCheckerDescriptor
-    {
-        IntervalSec = int.Parse(configuration["UpdateIntervalSec"])
-        // Int32 - не используем. Это для сохранения взаимозаменяемости C# с Visual Basic
+    var options = configuration.GetSection(PlannedPostsCheckerOptions.SectionName);
+    services.Configure<PlannedPostsCheckerOptions>(options);
 
-        // давай переделаем конфигурацию под Configuration.GetSection(PositionOptions.Position).Get<PositionOptions>(); как в примере тут https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-7.0 
-        // и передавать IOptions в IDao
-        // будет примерно Configuration.GetSection(PlannedPostsCheckerOptions.SectionName).Get<PlannedPostsCheckerOptions>() и не надо будет тут создавать инстанс PlannedPostsCheckerOptions. IOptions (options pattern) сам будет прокидывать IOptions<PlannedPostsCheckerOptions> когда встретит такое в конструкторе. Соответственно и в конструкторе PlannedPostsChecker тоже заменить на IOptions<...>
-        // https://metanit.com/sharp/aspnet5/6.3.php тоже как пример options pattern
-    };
-
-    services.AddHostedService<PlannedPostsChecker>(service => new PlannedPostsChecker(checkerDescriptor));
+    services.AddHostedService<PlannedPostsChecker>();
 
     services.AddTransient<IIntegrationEventHandler<SocialPostCommentedEvent>, SocialPostCommentedHandler>();
     services.AddTransient<IIntegrationEventHandler<SocialPostCreatedEvent>, SocialPostCreatedHandler>();

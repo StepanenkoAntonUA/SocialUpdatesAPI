@@ -1,4 +1,5 @@
 ﻿using Common;
+using Microsoft.Extensions.Options;
 
 namespace PostsManagementAPI.Services
 {
@@ -7,9 +8,9 @@ namespace PostsManagementAPI.Services
         private Timer? _timer = null;
         private int _secondsInterval;
 
-        public PlannedPostsChecker(PlannedPostsCheckerDescriptor descriptor)
+        public PlannedPostsChecker(IOptions<PlannedPostsCheckerOptions> options)
         {
-            _secondsInterval = descriptor.IntervalSec;
+            _secondsInterval = options.Value.UpdateIntervalSec;
         }
 
         public Task StartAsync(CancellationToken stoppingToken)

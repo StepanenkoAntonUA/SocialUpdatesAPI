@@ -28,15 +28,16 @@ namespace DataAccess.DAOs
 
         public async Task<List<PlannedPost>> GetPostsAsync(int delay)
         {
-            var minData = DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(delay));
-            var maxData = DateTime.UtcNow.AddSeconds(delay);
+            var minTime = DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(delay));
+            var maxTime = DateTime.UtcNow.AddSeconds(delay);
+
             var result = new List<PlannedPost>();
             var parameters = new DynamicParameters();
-            parameters.Add("@minData", minData);
-            parameters.Add("@maxData", maxData);
+            parameters.Add("@minTime", minTime);
+            parameters.Add("@maxTime", maxTime);
 
-            var selectQuery = "SELECT [Id], [Post], [PublishTime], [RetryCount] FROM PlannedPost " +
-                   "WHERE PublishTime BETWEEN @minData AND @maxData";
+            var selectQuery = @"SELECT [Id], [Post], [PublishTime], [RetryCount] FROM [dto].[PlannedPost]
+ WHERE [PublishTime] BETWEEN @minTime AND @maxTime"; // меньше конкатенаций строки
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
@@ -44,6 +45,5 @@ namespace DataAccess.DAOs
                 return result;
             }
         }
-
     }
 }

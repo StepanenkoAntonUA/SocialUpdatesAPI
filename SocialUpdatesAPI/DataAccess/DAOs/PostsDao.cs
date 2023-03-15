@@ -26,7 +26,7 @@ namespace DataAccess.DAOs
             }
         }
 
-        public async Task<List<PlannedPost>> GetPostsAsync(int delay)
+        public async Task<IEnumerable<PlannedPost>> GetPostsAsync(int delay)
         {
             var minData = DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(delay));
             var maxData = DateTime.UtcNow.AddSeconds(delay);
@@ -36,14 +36,24 @@ namespace DataAccess.DAOs
             parameters.Add("@maxData", maxData);
 
             var selectQuery = "SELECT [Id], [Post], [PublishTime], [RetryCount] FROM PlannedPost " +
-                   "WHERE PublishTime BETWEEN @minData AND @maxData";
+                   "WHERE IsPosted IS NULL AND (PublishTime BETWEEN @minData AND @maxData)";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                result.AddRange(await db.QueryAsync<PlannedPost>(selectQuery, parameters));
-                return result;
+                return await db.QueryAsync<PlannedPost>(selectQuery, parameters);
             }
         }
 
+        public async Task SetIsPostedAsync(Guid id)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", id);
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                var updateQuery = "UPDATE PlannedPost set IsPosted = 1 where Id = @id";
+                await db.ExecuteAsync(updateQuery, parameters);
+            }
+        }
     }
 }

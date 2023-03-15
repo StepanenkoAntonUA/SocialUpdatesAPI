@@ -45,7 +45,9 @@ namespace PostsManagementAPI.Services
             {
                 foreach (var post in plannedPosts)
                 {
+                    var postId = post.Id;
                     await sw.WriteLineAsync(post.ToJson());
+                    await _service.SetIsPostedAsync(postId);
                 }
             }
         }

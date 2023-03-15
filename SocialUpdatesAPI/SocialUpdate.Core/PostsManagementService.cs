@@ -44,11 +44,15 @@ namespace Domain
             return plannedPost;
         }
         
-        public async Task<List<PlannedPost>> GetPostsAsync(int delay)
+        public async Task<IEnumerable<PlannedPost>> GetPostsAsync(int delay)
         { 
             var postList = await _postsStore.GetPostsAsync(delay);
             return postList;
         }
-        
+
+        public async Task SetIsPostedAsync(Guid id)
+        {
+            await _postsStore.SetIsPostedAsync (id);
+        }
     }
 }

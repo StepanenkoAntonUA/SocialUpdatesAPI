@@ -19,9 +19,15 @@ namespace DataAccess.Stores
             return data;
         }
 
-        public async Task<List<PlannedPost>> GetPostsAsync(int delay)
+        public async Task<IEnumerable<PlannedPost>> GetPostsAsync(int delay)
         { 
             return await _dao.GetPostsAsync(delay);
         }
+
+        public async Task SetIsPostedAsync(Guid id)
+        {
+            await _dao.SetIsPostedAsync(id);
+        }
+
     }
 }

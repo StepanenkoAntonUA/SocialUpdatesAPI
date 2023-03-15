@@ -18,5 +18,10 @@ namespace DataAccess.Stores
             await _dao.SaveAsync(data);
             return data;
         }
+
+        public async Task<List<PlannedPost>> GetPostsAsync(int delay)
+        { 
+            return await _dao.GetPostsAsync(delay);
+        }
     }
 }

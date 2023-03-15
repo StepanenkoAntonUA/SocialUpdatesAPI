@@ -1,5 +1,8 @@
 ﻿using Common;
+using Domain;
+using Microsoft.AspNetCore.Razor.Language.Extensions;
 using Microsoft.Extensions.Options;
+using NuGet.Protocol;
 
 namespace PostsManagementAPI.Services
 {
@@ -7,10 +10,16 @@ namespace PostsManagementAPI.Services
     {
         private Timer? _timer = null;
         private int _secondsInterval;
+        private int _delaySec;
+        private IPostsManagementService _service;
 
-        public PlannedPostsChecker(IOptions<PlannedPostsCheckerOptions> options)
+        public PlannedPostsChecker(IOptions<PlannedPostsCheckerOptions> options,
+            IPostsManagementService service)
         {
             _secondsInterval = options.Value.UpdateIntervalSec;
+            _delaySec = options.Value.PlannedPostDelaySec;
+
+            _service = service;
         }
 
         public Task StartAsync(CancellationToken stoppingToken)
@@ -29,11 +38,15 @@ namespace PostsManagementAPI.Services
         {
             var currentDir = Path.Combine(Directory.GetCurrentDirectory());
             var fileName = $"{currentDir}\\Checker.txt";
-            var message = $"Checking {DateTime.UtcNow}";
 
+            var plannedPosts = await _service.GetPostsAsync(_delaySec);
+            
             using (var sw = new StreamWriter(fileName, true))
             {
-                await sw.WriteLineAsync(message);
+                foreach (var post in plannedPosts)
+                {
+                    await sw.WriteLineAsync(post.ToJson());
+                }
             }
         }
 

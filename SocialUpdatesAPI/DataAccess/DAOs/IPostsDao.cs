@@ -10,5 +10,6 @@ namespace DataAccess.DAOs
     public interface IPostsDao 
     {
         Task<PlannedPost> SaveAsync(PlannedPost data);
+        Task<List<PlannedPost>> GetPostsAsync(int delay);
     }
 }

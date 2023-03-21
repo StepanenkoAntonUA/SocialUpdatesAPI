@@ -1,7 +1,4 @@
-﻿using Eventer.Events.Events;
-using Newtonsoft.Json;
-
-namespace Eventer.Events.DTO
+﻿namespace Eventer.Events.DTO
 {
     public class UploadEventRequestDto
     {

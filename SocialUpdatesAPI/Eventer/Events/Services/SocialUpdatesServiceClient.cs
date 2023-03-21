@@ -16,7 +16,6 @@ namespace Eventer.Events.Services
 
         public async Task<SocialUpdatesRequestResultDto> UploadRequestBodyAsync(UploadEventRequestDto requestData)
         {
-
             var request = NewRequest();
             var res = await request.ExecutePostAndCloseAsync<UploadEventRequestDto, UploadEventResponseDto>(requestData);
 
@@ -26,10 +25,12 @@ namespace Eventer.Events.Services
                 EventTime = res.EventTime,
                 Payload = res.Payload
             };
-            var statusResponse = new SocialUpdatesRequestResultDto
+
+            var statusResponse = new SocialUpdatesRequestResultDto // Result - не DTO. Просто Result
             {
                 ResponseDto = response
             };
+
             return statusResponse;
         }
 

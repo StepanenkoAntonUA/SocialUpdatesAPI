@@ -59,7 +59,7 @@ void ConfigureServices(IServiceCollection services)
     services.AddHostedService<PlannedPostsChecker>();
 
     services.AddTransient<IIntegrationEventHandler<SocialPostCommentedEvent>, SocialPostCommentedHandler>();
-    services.AddTransient<IIntegrationEventHandler<SocialPostCreatedEvent>, SocialPostCreatedHandler>();
+    services.AddTransient<IIntegrationEventHandler<PlannedPostCreatedEvent>, PlannedPostCreatedHandler>();
     services.AddTransient<IIntegrationEventHandler<SocialPostSentEvent>, SocialPostSentHandler>();
 
     var assemblyList = new List<Assembly>

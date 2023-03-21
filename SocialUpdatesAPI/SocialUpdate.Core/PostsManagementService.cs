@@ -26,7 +26,7 @@ namespace Domain
         {
             data.Id = Guid.NewGuid();
 
-            var newEvent = new SocialPostCreatedEvent
+            var newEvent = new PlannedPostCreatedEvent
             {
                 EventId = Guid.NewGuid().ToString()
                 ,

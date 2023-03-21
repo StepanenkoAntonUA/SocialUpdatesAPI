@@ -1,10 +1,12 @@
-﻿namespace Eventer.Events.Events
+﻿using Eventer.Events.Events;
+using Newtonsoft.Json;
+
+namespace Eventer.Events.DTO
 {
-    public class SocialPostCreatedEvent : IEvent
+    public class UploadEventRequestDto
     {
         public string EventId { get; set; }
         public DateTime EventTime { get; set; }
         public string Payload { get; set; }
-
     }
 }

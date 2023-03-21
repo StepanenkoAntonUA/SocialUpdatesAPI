@@ -8,6 +8,8 @@ ConfigureServices(builder.Services);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IUpdateStore, UpdateStore>();
 builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
+builder.Services.AddTransient<ISocialUpdatesStore, SocialUpdatesStore>();
+
 
 builder.Services.AddCors(p =>
 {
@@ -37,4 +39,6 @@ void ConfigureServices(IServiceCollection services)
 {
     services.AddTransient<ISocialUpdatesService, SocialUpdatesService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
+    services.AddTransient<ISocialUpdatesSenderService, SocialUpdatesSenderService>();
+
 }

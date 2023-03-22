@@ -4,6 +4,6 @@ namespace Eventer.Events.Services
 {
     public interface ISocialUpdatesServiceClient
     {
-        Task<SocialUpdatesRequestResultDto> UploadRequestBodyAsync(UploadEventRequestDto requestData);
+        Task<SocialUpdatesRequestResult> CreatePlannedPostAsync(UploadEventRequestDto requestData);
     }
 }

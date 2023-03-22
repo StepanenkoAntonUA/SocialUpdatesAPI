@@ -1,6 +1,6 @@
 ﻿namespace Eventer.Events.DTO
 {
-    public class SocialUpdatesRequestResultDto
+    public class SocialUpdatesRequestResult
     {
         public UploadEventResponseDto ResponseDto { get; set; }
     }

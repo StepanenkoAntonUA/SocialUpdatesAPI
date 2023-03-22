@@ -1,9 +1,9 @@
-﻿namespace Eventer.Events.DTO
+﻿using Eventer.Events.Events;
+
+namespace Eventer.Events.DTO
 {
     public class UploadEventRequestDto
     {
-        public string EventId { get; set; }
-        public DateTime EventTime { get; set; }
-        public string Payload { get; set; }
+        public PlannedPostCreatedEvent PlannedPostEvent { get; set; }
     }
 }

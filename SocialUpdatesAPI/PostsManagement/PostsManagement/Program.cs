@@ -8,6 +8,7 @@ using Eventer.Common;
 using Eventer.Events;
 using Eventer.Events.Events;
 using Eventer.Events.Handlers;
+using Eventer.Events.Services;
 using PostsManagementAPI.Services;
 using System.Reflection;
 
@@ -52,15 +53,19 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<IPostsManagementService, PostsManagementService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<ISerializer, Serializer>();
+    services.AddTransient<ISocialUpdatesServiceClient, SocialUpdatesServiceClient>();
 
     var options = configuration.GetSection(PlannedPostsCheckerOptions.SectionName);
     services.Configure<PlannedPostsCheckerOptions>(options);
 
     services.AddHostedService<PlannedPostsChecker>();
+    services.AddTransient<ISocialUpdatesServiceClient, SocialUpdatesServiceClient>();
 
     services.AddTransient<IIntegrationEventHandler<SocialPostCommentedEvent>, SocialPostCommentedHandler>();
     services.AddTransient<IIntegrationEventHandler<PlannedPostCreatedEvent>, PlannedPostCreatedHandler>();
     services.AddTransient<IIntegrationEventHandler<SocialPostSentEvent>, SocialPostSentHandler>();
+
+
 
     var assemblyList = new List<Assembly>
     {

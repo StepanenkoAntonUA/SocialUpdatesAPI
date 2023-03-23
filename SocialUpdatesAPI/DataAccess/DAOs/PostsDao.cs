@@ -36,7 +36,7 @@ namespace DataAccess.DAOs
             parameters.Add("@minTime", minTime);
             parameters.Add("@maxTime", maxTime);
 
-            var selectQuery = @"SELECT [Id], [Post], [PublishTime], [RetryCount] FROM [dto].[PlannedPost]
+            var selectQuery = @"SELECT [Id], [Post], [PublishTime], [RetryCount], [IsPosted] FROM [dbo].[PlannedPost]
  WHERE IsPosted IS NULL AND ([PublishTime] BETWEEN @minTime AND @maxTime)";
 
             using (IDbConnection db = new SqlConnection(_connectionString))

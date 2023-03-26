@@ -19,7 +19,7 @@ namespace DataAccess.DAOs
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                var insertQuery = "INSERT INTO  SocialUpdates (Id, EventTime, Payload) VALUES (@Id, @EventTime, @Payload)";
+                var insertQuery = "INSERT INTO  SocialUpdates (Id, EventTime, Payload) VALUES (@EventId, @EventTime, @Payload)";
                 await db.ExecuteAsync(insertQuery, data);
 
                 return data;

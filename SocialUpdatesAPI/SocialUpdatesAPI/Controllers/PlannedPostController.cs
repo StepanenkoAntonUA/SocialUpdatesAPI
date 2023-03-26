@@ -6,11 +6,12 @@ namespace SocialUpdatesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlannedPostCotroller : ControllerBase
+
+    public class PlannedPostController : ControllerBase
     {
         private readonly IPlannedPostService _service;
 
-        public PlannedPostCotroller(
+        public PlannedPostController(
             IPlannedPostService service)
         {
             _service = service;
@@ -20,7 +21,6 @@ namespace SocialUpdatesAPI.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllItems()
         {
-            Console.WriteLine("Test");
             return Ok();
         }
 

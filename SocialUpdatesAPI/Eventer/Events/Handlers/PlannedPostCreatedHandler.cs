@@ -7,11 +7,14 @@ namespace Eventer.Events.Handlers
     public class PlannedPostCreatedHandler : Handler, IIntegrationEventHandler<PlannedPostCreatedEvent>
     {
         private ISocialUpdatesServiceClient _serviceClient;
+        private IStatisticServiceClient _statisticServiceClient;
 
-        public PlannedPostCreatedHandler(IServiceProvider _services, ISocialUpdatesServiceClient serviceClient) : base(_services)
+        public PlannedPostCreatedHandler(IServiceProvider _services
+            , ISocialUpdatesServiceClient serviceClient
+            , IStatisticServiceClient statisticServiceClient) : base(_services)
         {
             _serviceClient = serviceClient;
-            
+            _statisticServiceClient = statisticServiceClient;
         }
 
         public async Task HandleAsync(PlannedPostCreatedEvent value)
@@ -20,8 +23,8 @@ namespace Eventer.Events.Handlers
             {
                 PlannedPostEvent = value
             };
-               await _serviceClient.CreatePlannedPostAsync(requestDto);
-         
+            await _serviceClient.CreatePlannedPostAsync(requestDto);
+            await _statisticServiceClient.UpdateStatisticAsync(requestDto);
         }
     }
 }

@@ -54,6 +54,7 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<ISerializer, Serializer>();
     services.AddTransient<ISocialUpdatesServiceClient, SocialUpdatesServiceClient>();
+    services.AddTransient<IStatisticServiceClient, StatisticServiceClient>();
 
     var options = configuration.GetSection(PlannedPostsCheckerOptions.SectionName);
     services.Configure<PlannedPostsCheckerOptions>(options);

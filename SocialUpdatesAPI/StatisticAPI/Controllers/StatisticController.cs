@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using StatisticAPI.DTO;
 
 namespace StatisticAPI.Controllers
@@ -8,10 +9,10 @@ namespace StatisticAPI.Controllers
     [ApiController]
     public class StatisticController : ControllerBase
     {
-        private readonly IPlannedPostService _service;
+        private readonly IStatisticService _service;
 
         public StatisticController(
-            IPlannedPostService service)
+            IStatisticService service)
         {
             _service = service;
         }
@@ -25,9 +26,9 @@ namespace StatisticAPI.Controllers
 
         [Route("add")]
         [HttpPost]
-        public async Task<ActionResult> IncreaseCounterAsync(PlannedPostCreatedEventDTO plannedPostDTO)
+        public async Task<ActionResult<PlannedPostCreatedStatistic>> IncreaseCounterAsync(PlannedPostCreatedEventDTO plannedPostDTO)
         {
-            return Ok();
+            return await _service.UpdateStatisticAsync();
         }
 
     }

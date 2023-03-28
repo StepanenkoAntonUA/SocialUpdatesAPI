@@ -44,6 +44,7 @@ void ConfigureServices(IServiceCollection services)
     services.AddTransient<ISocialUpdatesService, SocialUpdatesService>();
     services.AddTransient<ISocialGroupService, SocialGroupService>();
     services.AddTransient<IPlannedPostService, PlannedPostService>();
+    services.AddTransient<IStatisticService, StatisticService>();
 
     var options = configuration.GetSection(PlannedPostsCheckerOptions.SectionName);
     services.Configure<PlannedPostsCheckerOptions>(options);
@@ -65,5 +66,7 @@ void ConfigureStores(IServiceCollection services)
 
     builder.Services.AddSingleton<IUpdateStore, UpdateStore>();
     builder.Services.AddSingleton<ISocialGroupStore, SocialGroupStore>();
+    builder.Services.AddTransient<IPlannedPostStore, PlannedPostStore>();
+
 
 }

@@ -41,6 +41,7 @@ namespace Domain
                 await _eventBus.PublishAsync(newEvent);
             }
 
+
             return plannedPost;
         }
         

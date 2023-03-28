@@ -23,6 +23,10 @@ namespace Eventer.Events.Handlers
             {
                 PlannedPostEvent = value
             };
+
+            // retry - if exception. Повторять попытку 5 раз, через каждые 3 секунды, если предыдущая не выполнилась
+            // dead-letter. Операцию кладем в отдельный Store. И поторяем через N - часов.
+
             await _serviceClient.CreatePlannedPostAsync(requestDto);
             await _statisticServiceClient.UpdateStatisticAsync(requestDto);
         }

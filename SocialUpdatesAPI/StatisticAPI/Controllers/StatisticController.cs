@@ -26,7 +26,7 @@ namespace StatisticAPI.Controllers
 
         [Route("add")]
         [HttpPost]
-        public async Task<ActionResult<PlannedPostCreatedStatistic>> IncreaseCounterAsync(PlannedPostCreatedEventDTO plannedPostDTO)
+        public async Task<ActionResult<PlannedPostCreatedStatistic>> UpdateStatisticAsync()
         {
             return await _service.UpdateStatisticAsync();
         }
